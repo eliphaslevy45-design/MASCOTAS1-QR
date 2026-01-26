@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NITH-AIAH · Rescate de Mascotas</title>
+
+<meta property="og:title" content="Mascota perdida - Ayuda inmediata">
+<meta property="og:description" content="Has escaneado este código para ayudar a una mascota a volver a casa.">
+<meta property="og:image" content="img/foto-mascota.jpg">
+<meta property="og:type" content="website">
+
+<style>
+/* ========== ESTILOS COMPLETOS ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #e9ecef);
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+.emergency-banner {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    color: #ffeb3b;
+    text-align: center;
+    padding: 15px 20px;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(255, 68, 68, 0.5);
+    position: relative;
+    overflow: hidden;
+    animation: emergencyPulse 2s ease-in-out infinite;
+    z-index: 1000;
+}
+
+@keyframes emergencyPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+
+.emergency-badge {
+    position: fixed; top: 20px; right: 20px;
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    color: #ffeb3b; padding: 8px 15px; border-radius: 25px;
+    font-weight: bold; font-size: 14px; box-shadow: 0 4px 15px rgba(255, 68, 68, 0.6);
+    z-index: 9999; opacity: 0; transition: opacity 0.5s;
+}
+
+.emergency-badge.visible { opacity: 1; }
+.emergency-banner.fade-out { animation: fadeOut 1s forwards; }
+@keyframes fadeOut { to { opacity: 0; transform: translateY(-100%); } }
+
+.header {
+    background: linear-gradient(135deg, #d4a5d4, #a8c8e4);
+    text-align: center; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo { max-width: 200px; height: auto; }
+.header-subtitle { font-weight: bold; letter-spacing: 2px; margin-top: 15px; font-size: 16px; color: #2c3e50; }
+
+.lang-selector { margin-top: 15px; font-size: 14px; }
+.lang-selector span { cursor: pointer; margin: 0 5px; padding: 5px 10px; border-radius: 5px; transition: all 0.3s; border: 1px solid transparent; }
+.lang-selector span.active { background: rgba(255,255,255,0.5); font-weight: bold; border-color: #8b5a9f; }
+
+.header h1 { margin-top: 20px; font-size: 28px; }
+.header p { margin-top: 10px; font-weight: bold; font-style: italic; }
+
+.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+.call-action { 
+    text-align: center; margin: 35px 0; background: white; padding: 30px; border-radius: 15px; 
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+}
+
+.btn-call {
+    background: linear-gradient(135deg, #1c73e8, #1557b0);
+    color: white; padding: 16px 34px; border-radius: 40px; text-decoration: none;
+    font-weight: bold; display: inline-block; transition: all 0.3s;
+}
+
+.main-content {
+    background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    overflow: hidden; margin-bottom: 30px;
+}
+.pet-info-section { display: grid; grid-template-columns: 350px 1fr; }
+.pet-image {
+    background: linear-gradient(135deg, #d4a5d4, #c8b5e4);
+    padding: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.pet-image img {
+    width: 100%; max-width: 290px; border-radius: 15px; border: 5px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2); object-fit: cover;
+}
+.pet-details { padding: 40px; }
+.info-group { margin-bottom: 30px; }
+.section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    padding-bottom: 10px; border-bottom: 3px solid #d4a5d4;
+}
+.section-header h2 { color: #8b5a9f; font-size: 20px; margin: 0; }
+.info-item { margin-bottom: 12px; display: flex; align-items: baseline; gap: 8px; font-size: 16px; }
+.info-item strong { color: #5a5a5a; min-width: 160px; display: inline-block; }
+
+.priority-badge {
+    background: linear-gradient(135deg, #ffd89b, #ffb88c);
+    color: #7a4a00; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;
+}
+
+.whatsapp-section {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    padding: 30px; margin: 30px 20px; text-align: center; border-radius: 15px;
+}
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white; padding: 18px 40px; border-radius: 50px; font-size: 20px;
+    font-weight: bold; text-decoration: none; display: inline-block;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.footer { text-align: center; padding: 30px; font-size: 14px; color: #777; }
+
+@media (max-width: 768px) {
+    .pet-info-section { grid-template-columns: 1fr; }
+    .info-item { flex-direction: column; }
+    .info-item strong { min-width: auto; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="emergency-banner" id="emergencyBanner">
+    <span>🚨 <span data-i18n="emergencyAlert">URGENTE - ESTOY PERDIDA</span> 🚨</span>
+</div>
+
+<div class="emergency-badge" id="emergencyBadge">🆘 <span data-i18n="urgentBadge">URGENTE</span></div>
+
+<div class="header">
+    <img src="img/logo.png" class="logo" alt="Nith aiah">
+    <div class="header-subtitle" data-i18n="subtitle">NITH-AIAH RESCATE DE MASCOTAS</div>
+    <div class="lang-selector">
+        <span onclick="setLang('es')" id="lang-es">ES</span> |
+        <span onclick="setLang('en')" id="lang-en">EN</span> |
+        <span onclick="setLang('fr')" id="lang-fr">FR</span> |
+        <span onclick="setLang('it')" id="lang-it">IT</span> |
+        <span onclick="setLang('de')" id="lang-de">DE</span>
+    </div>
+    <h1 data-i18n="title">🐾 ¡HOLA! ME LLAMO PRINCESA</h1>
+    <p data-i18n="subtitle2">Ayúdame a volver a casa, mi familia me espera</p>
+</div>
+
+<div class="container">
+    <div class="call-action">
+        <a href="tel:+34610768377" class="btn-call" data-i18n="call">📞 LLAMAR AHORA</a>
+    </div>
+
+    <div class="main-content">
+        <div class="pet-info-section">
+            <div class="pet-image">
+                <img src="img/foto-mascota.jpg" alt="Princesa">
+            </div>
+            <div class="pet-details">
+                <div class="info-group">
+                    <div class="section-header"><h2>📞 <span data-i18n="contactTitle">CONTACTO DE EMERGENCIA</span></h2></div>
+                    <div class="info-item"><strong data-i18n="owner">Dueño/a:</strong><span>Enrique Romero Morales</span></div>
+                    <div class="info-item"><strong data-i18n="phone1">Teléfono 1:</strong><span>+34 610 76 83 77 <span class="priority-badge">⚡ Prioridad</span></span></div>
+                    <div class="info-item"><strong data-i18n="phone2">Teléfono 2:</strong><span>+34 606 41 53 93</span></div>
+                </div>
+
+                <div class="info-group">
+                    <div class="section-header"><h2>🏥 <span data-i18n="medicalTitle">INFORMACIÓN MÉDICA Y SALUD</span></h2></div>
+                    <div class="info-item"><strong data-i18n="microchip">Microchip:</strong><span>Sí, estoy identificada.</span></div>
+                    <div class="info-item"><strong data-i18n="health">Salud:</strong><span>"No tengo alergias" / "Necesito medicación"</span></div>
+                    <div class="info-item"><strong data-i18n="character">Carácter:</strong><span>Soy muy miedosa, pero muy sociable.</span></div>
+                </div>
+
+                <div class="info-group">
+                    <div class="section-header"><h2>🏠 <span data-i18n="homeTitle">MI HOGAR</span></h2></div>
+                    <div class="info-item"><strong data-i18n="zone">Zona/Barrio:</strong><span>Las Torres. Las Palmas de G.C. C.P. 35011</span></div>
+                    <div class="info-item"><strong data-i18n="reward">Recompensa:</strong><span>Se gratificará la ayuda para volver a casa.</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="whatsapp-section">
+        <h3 data-i18n="foundTitle">🐕 ¿Has encontrado a esta mascota?</h3>
+        <p data-i18n="privacy">Se enviará tu ubicación para recogerme rápidamente.</p>
+        <a href="https://api.whatsapp.com/send?phone=34610768377" class="btn-whatsapp" id="btnWhatsApp" data-i18n="whatsapp">
+            📱 Avisar por WhatsApp
+        </a>
+    </div>
+</div>
+
+<div class="footer">🦋 NITH-AIAH · Rescate y Protección de Mascotas 🦋</div>
+
+<script>
+const translations = {
+    es: { 
+        emergencyAlert: "URGENTE - ESTOY PERDIDA", urgentBadge: "URGENTE", subtitle: "NITH-AIAH RESCATE DE MASCOTAS",
+        title: "🐾 ¡HOLA! ME LLAMO PRINCESA", subtitle2: "Ayúdame a volver a casa, mi familia me espera",
+        call: "📞 LLAMAR AHORA", contactTitle: "CONTACTO DE EMERGENCIA", owner: "Dueño/a:", phone1: "Teléfono 1:", phone2: "Teléfono 2:",
+        medicalTitle: "INFORMACIÓN MÉDICA Y SALUD", microchip: "Microchip:", health: "Salud:", character: "Carácter:",
+        homeTitle: "MI HOGAR", zone: "Zona/Barrio:", reward: "Recompensa:", foundTitle: "🐕 ¿Has encontrado a esta mascota?",
+        privacy: "Se enviará tu ubicación para recogerme rápidamente.", whatsapp: "📱 Avisar por WhatsApp",
+        msg: "Hola, he encontrado a Princesa. Mi ubicación: "
+    },
+    en: { 
+        emergencyAlert: "URGENT - I'M LOST", urgentBadge: "URGENT", subtitle: "NITH-AIAH PET RESCUE",
+        title: "🐾 HELLO! MY NAME IS PRINCESA", subtitle2: "Help me get home, my family is waiting",
+        call: "📞 CALL NOW", contactTitle: "EMERGENCY CONTACT", owner: "Owner:", phone1: "Phone 1:", phone2: "Phone 2:",
+        medicalTitle: "MEDICAL & HEALTH INFO", microchip: "Microchip:", health: "Health:", character: "Character:",
+        homeTitle: "MY HOME", zone: "Area/Neighborhood:", reward: "Reward:", foundTitle: "🐕 Did you find this pet?",
+        privacy: "Your location will be sent to pick me up.", whatsapp: "📱 Notify via WhatsApp",
+        msg: "Hello, I've found Princesa. My location: "
+    },
+    fr: { 
+        emergencyAlert: "URGENT - JE SUIS PERDUE", urgentBadge: "URGENT", subtitle: "NITH-AIAH SAUVETAGE D'ANIMAUX",
+        title: "🐾 BONJOUR ! JE M'APPELLE PRINCESA", subtitle2: "Aidez-moi à rentrer à la maison",
+        call: "📞 APPELER MAINTENANT", contactTitle: "CONTACT D'URGENCE", owner: "Propriétaire:", phone1: "Tél 1:", phone2: "Tél 2:",
+        medicalTitle: "INFO MÉDICALE ET SANTÉ", microchip: "Micropuce:", health: "Santé:", character: "Caractère:",
+        homeTitle: "MA MAISON", zone: "Zone/Quartier:", reward: "Récompense:", foundTitle: "🐕 Avez-vous trouvé cet animal?",
+        privacy: "Votre position sera envoyée.", whatsapp: "📱 Prévenir via WhatsApp",
+        msg: "Bonjour, j'ai trouvé Princesa. Ma position: "
+    },
+    it: { 
+        emergencyAlert: "URGENTE - SONO PERSA", urgentBadge: "URGENTE", subtitle: "NITH-AIAH SOCCORSO ANIMALI",
+        title: "🐾 CIAO! MI CHIAMO PRINCESA", subtitle2: "Aiutami a tornare a casa",
+        call: "📞 CHIAMA ORA", contactTitle: "CONTATTO DI EMERGENZA", owner: "Proprietario:", phone1: "Tel 1:", phone2: "Tel 2:",
+        medicalTitle: "INFO MEDICHE E SALUTE", microchip: "Microchip:", health: "Salute:", character: "Carattere:",
+        homeTitle: "LA MIA CASA", zone: "Zona/Quartiere:", reward: "Ricompensa:", foundTitle: "🐕 Hai trovato questo animale?",
+        privacy: "La tua posizione sarà inviata.", whatsapp: "📱 Avvisa via WhatsApp",
+        msg: "Ciao, ho trovato Princesa. La mia posizione: "
+    },
+    de: { 
+        emergencyAlert: "DRINGEND - ICH BIN VERLOREN", urgentBadge: "DRINGEND", subtitle: "NITH-AIAH TIERRETTUNG",
+        title: "🐾 HALLO! ICH HEISSE PRINCESA", subtitle2: "Hilf mir nach Hause zu kommen",
+        call: "📞 JETZT ANRUFEN", contactTitle: "NOTFALLKONTAKT", owner: "Besitzer:", phone1: "Tel 1:", phone2: "Tel 2:",
+        medicalTitle: "MEDIZINISCHE INFO & GESUNDHEIT", microchip: "Mikrochip:", health: "Gesundheit:", character: "Charakter:",
+        homeTitle: "MEIN ZUHAUSE", zone: "Gebiet/Viertel:", reward: "Belohnung:", foundTitle: "🐕 Hast du dieses Tier gefunden?",
+        privacy: "Dein Standort wird gesendet.", whatsapp: "📱 Per WhatsApp melden",
+        msg: "Hallo, ich habe Princesa gefunden. Mein Standort: "
+    }
+};
+
+let userCoords = null;
+
+function setLang(lang) {
+    const t = translations[lang] || translations.es;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        if(t[el.dataset.i18n]) el.innerHTML = t[el.dataset.i18n];
+    });
+    document.querySelectorAll('.lang-selector span').forEach(span => span.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+    localStorage.setItem('preferredLang', lang);
+    updateWA(lang);
+}
+
+function updateWA(lang) {
+    const t = translations[lang] || translations.es;
+    const btn = document.getElementById('btnWhatsApp');
+    let message = t.msg;
+    if(userCoords) {
+        message += `https://www.google.com/maps?q=lat,lon?q=${userCoords.lat},${userCoords.lon}`;
+    }
+    btn.href = "https://api.whatsapp.com/send?phone=34610768377&text=" + encodeURIComponent(message);
+}
+
+window.addEventListener('load', () => {
+    const lang = localStorage.getItem('preferredLang') || "es";
+    setLang(lang);
+
+    setTimeout(() => {
+        const banner = document.getElementById('emergencyBanner');
+        if(banner) {
+            banner.classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('emergencyBadge').classList.add('visible');
+                banner.remove();
+            }, 1000);
+        }
+    }, 4000);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+            userCoords = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+            updateWA(localStorage.getItem('preferredLang') || "es");
+        }, null, { enableHighAccuracy: true });
+    }
+});
+</script>
+</body>
+</html>
