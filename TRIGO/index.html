@@ -595,6 +595,152 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.video-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-modal-overlay.visible {
+    display: flex;
+}
+
+.video-modal {
+    background: white;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    padding: 35px 30px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.video-modal h3 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.video-modal-steps {
+    text-align: left;
+    margin: 20px 0;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.video-modal-steps p {
+    margin: 12px 0;
+    font-size: 15px;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+.video-modal-info {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.btn-video-modal {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    margin-top: 10px;
+}
+
+.btn-video-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+}
+
+.btn-video-modal:active {
+    transform: scale(0.97);
+}
+
+/* CARRUSEL DE FOTOS */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 290px;
+    margin: 0 auto;
+}
+
+.carousel-images {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 5px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.carousel-slide {
+    display: none;
+    width: 100%;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Indicadores (dots) */
+.carousel-indicators {
+    text-align: center;
+    padding: 12px 0;
+}
+
+.carousel-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background: white;
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
 </style>
 </head>
 
@@ -682,7 +828,24 @@ body {
     <div class="pet-info-section">
         
         <div class="pet-image">
-            <img src="img/trigo.webp" alt="Foto de la mascota">
+            <div class="carousel-container">
+                <div class="carousel-images">
+                    <div class="carousel-slide active">
+                        <img src="img/trigo.webp" alt="Foto frontal de la mascota">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="img/trigo-2.webp" alt="Foto cuerpo completo de la mascota">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="img/trigo-3.webp" alt="Foto señas particulares de la mascota">
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <span class="carousel-dot active" data-slide="0"></span>
+                    <span class="carousel-dot" data-slide="1"></span>
+                    <span class="carousel-dot" data-slide="2"></span>
+                </div>
+            </div>
             <div class="pet-caption">Trigo te está esperando</div>
         </div>
 
@@ -714,15 +877,15 @@ body {
                 </div>
                 <div class="info-item">
                     <strong data-i18n="microchip">Microchip:</strong>
-                    <span>No, aún no tengo microchip.</span>
+                    <span>Sí, estoy identificada.</span>
                 </div>
                 <div class="info-item">
                     <strong data-i18n="health">Salud:</strong>
-                    <span>"Soy Asmático" y "Tengo Problemas de Corazón"</span>
+                    <span>"Tengo Alergia" y "Necesito medicación"</span>
                 </div>
                 <div class="info-item">
                     <strong data-i18n="character">Carácter:</strong>
-                    <span>[E]: "Soy muy tímido, y me asusto fácilmente"</span>
+                    <span>[E]: "Soy tímido y me asusto fácilmente"</span>
                 </div>
             </div>
 
@@ -733,10 +896,10 @@ body {
                 </div>
                 <div class="info-item">
                     <strong data-i18n="zone">Zona/Barrio:</strong>
-                    <span>[Pueblo de Ingenio en Gran Canaria C.P. 35250]</span>
+                    <span>[Pueblo de Ingenio en Gran Canaria. C.P. 35250]</span>
                 </div>
                 <div class="info-item">
-                    <strong data-i18n="reward">OTROS DATOS:</strong>
+                    <strong data-i18n="reward">Recompensa:</strong>
                     <span>S/N.</span>
                 </div>
             </div>
@@ -755,6 +918,9 @@ body {
     <button class="btn-whatsapp" onclick="enviarWhatsApp()" data-i18n="whatsapp">
         📱 Avisar al dueño por WhatsApp
     </button>
+    <button class="btn-whatsapp" onclick="mostrarModalVideo()" data-i18n="videocall">
+        📹 Contactar para Videollamada
+    </button>
 </div>
 
 </div>
@@ -763,7 +929,7 @@ body {
     🦋 NITH-AIAH · Rescate y Protección de Mascotas 🦋
     <p>Ayudando a reunir familias con sus compañeros peludos</p>
     <p style="margin-top:10px; font-size:13px;">
-        <a href="../privacidad.html" style="color:#a07ab0; text-decoration:none; font-weight:bold;">
+        <a href="../privacidad.html" target="_blank" style="color:#a07ab0; text-decoration:none; font-weight:bold;" data-i18n="privacyLink">
             🔒 Política de Privacidad
         </a>
     </p>
@@ -790,10 +956,12 @@ const translations = {
         character: "Carácter:",
         homeTitle: "MI HOGAR",
         zone: "Zona/Barrio:",
-        reward: "Otros datos:",
+        reward: "OTROS DATOS:",
         foundTitle: "🐕 ¿Has encontrado a esta mascota?",
+        privacyLink: "🔒 Política de Privacidad",
         privacy: "<strong>Te pediremos tu ubicación solo para que el dueño pueda ir a recoger a su mascota.</strong><br>No se guarda ni se usa para nada más.",
         whatsapp: "📱 Avisar al dueño por WhatsApp",
+        videocall: "📹 Contactar para Videollamada",
         loadingText: "Obteniendo ubicación...",
         gdprTitle: "📍 Antes de continuar",
         gdprWhat: "Se va a recoger tu ubicación GPS aproximada.",
@@ -802,9 +970,17 @@ const translations = {
         gdprNoStore: "No se almacena en ningún servidor ni se usa para ningún otro fin.",
         gdprAccept: "✅ Acepto",
         gdprCancel: "📵 Avisar sin ubicación",
+        videoModalTitle: "VIDEOLLAMADA CON EL DUENO",
+        videoModalStep1: "1. En un momento se abrira WhatsApp",
+        videoModalStep2: "2. Envia el mensaje al dueno",
+        videoModalStep3: "3. DESPUES de enviar, pulsa el icono de videollamada en WhatsApp",
+        videoModalInfo: "Asi el dueno podra ver que su mascota esta bien",
+        videoModalBtn: "Abrir WhatsApp",
         whatsappMsg: "Hola, he encontrado a {nombre}.\n\nMi ubicación aproximada es:\n{mapa}\n\nPor favor, comunícate conmigo para recogerla lo antes posible. Tu mascota está a salvo, espero tu respuesta.",
         whatsappMsgNoGeo: "Hola, he encontrado a {nombre}.\n\nNo he podido compartir mi ubicación automáticamente, pero puedes contactarme por este medio. Por favor, comunícate conmigo para recogerla lo antes posible. Tu mascota está a salvo, espero tu respuesta.",
-        whatsappMsgNoSupport: "Hola, he encontrado a {nombre}.\n\nMi dispositivo no soporta geolocalización, pero puedes contactarme por este medio. Por favor, comunícate conmigo para recogerla lo antes posible. Tu mascota está a salvo, espero tu respuesta."
+        whatsappMsgNoSupport: "Hola, he encontrado a {nombre}.\n\nMi dispositivo no soporta geolocalización, pero puedes contactarme por este medio. Por favor, comunícate conmigo para recogerla lo antes posible. Tu mascota está a salvo, espero tu respuesta.",
+        whatsappMsgVideo: "Hola! He encontrado a {nombre}. Esta conmigo y bien.\n\nQuieres verla por videollamada ahora?\nResponde este mensaje y luego pulsa el icono de camara en WhatsApp\n\nMi ubicacion: {ubicacion}\n\nTu mascota esta a salvo.",
+        whatsappMsgVideoNoGeo: "Hola! He encontrado a {nombre}. Esta conmigo y bien.\n\nQuieres verla por videollamada ahora?\nResponde este mensaje y luego pulsa el icono de camara en WhatsApp\n\nTu mascota esta a salvo."
     },
 
     en: { 
@@ -828,8 +1004,10 @@ const translations = {
         zone: "Area/Neighborhood:",
         reward: "OTHER DATA:",
         foundTitle: "🐕 Did you find this pet?",
+        privacyLink: "🔒 Privacy Policy",
         privacy: "<strong>We will ask your location only to return the pet.</strong><br>Nothing is stored.",
         whatsapp: "📱 Notify owner via WhatsApp",
+        videocall: "📹 Contact for Video Call",
         loadingText: "Getting location...",
         gdprTitle: "📍 Before continuing",
         gdprWhat: "Your approximate GPS location will be collected.",
@@ -837,7 +1015,13 @@ const translations = {
         gdprReceiver: "It will be sent to the owner via WhatsApp, only to them.",
         gdprNoStore: "It is not stored on any server or used for any other purpose.",
         gdprAccept: "✅ I agree",
-        gdprCancel: "📵 Notify without location"
+        gdprCancel: "📵 Notify without location",
+        videoModalTitle: "VIDEO CALL WITH THE OWNER",
+        videoModalStep1: "1. WhatsApp will open shortly",
+        videoModalStep2: "2. Send the message to the owner",
+        videoModalStep3: "3. AFTER sending, tap the video call icon in WhatsApp",
+        videoModalInfo: "This way the owner can see their pet is safe",
+        videoModalBtn: "Open WhatsApp"
     },
 
     fr: { 
@@ -861,8 +1045,10 @@ const translations = {
         zone: "Zone/Quartier:",
         reward: "AUTRES DONNÉES:",
         foundTitle: "🐕 Avez-vous trouvé cet animal?",
+        privacyLink: "🔒 Politique de Confidentialité",
         privacy: "<strong>Votre position sera demandée uniquement pour retrouver l'animal.</strong><br>Rien n'est enregistré.",
-        whatsapp: "📱 Prévenir le propriétaire via WhatsApp",
+        whatsapp: "📱 Prévenir le propriétaire Via WhatsApp",
+        videocall: "📹 Contacter pour Appel Vidéo",
         loadingText: "Obtention de la position...",
         gdprTitle: "📍 Avant de continuer",
         gdprWhat: "Votre position GPS approximative va être collectée.",
@@ -870,7 +1056,13 @@ const translations = {
         gdprReceiver: "Elle sera envoyée au propriétaire via WhatsApp, uniquement à lui.",
         gdprNoStore: "Elle n'est stockée sur aucun serveur ni utilisée à d'autres fins.",
         gdprAccept: "✅ J'accepte",
-        gdprCancel: "📵 Aviser sans position"
+        gdprCancel: "📵 Aviser sans position",
+        videoModalTitle: "APPEL VIDEO AVEC LE PROPRIETAIRE",
+        videoModalStep1: "1. WhatsApp va s'ouvrir dans un instant",
+        videoModalStep2: "2. Envoyez le message au proprietaire",
+        videoModalStep3: "3. APRES l'envoi, appuyez sur l'icone d'appel video dans WhatsApp",
+        videoModalInfo: "Ainsi le proprietaire pourra voir que son animal va bien",
+        videoModalBtn: "Ouvrir WhatsApp"
     },
 
     it: { 
@@ -894,8 +1086,10 @@ const translations = {
         zone: "Zona/Quartiere:",
         reward: "ALTRI DATI:",
         foundTitle: "🐕 Hai trovato questo animale?",
+        privacyLink: "🔒 Informativa sulla Privacy",
         privacy: "<strong>La posizione è richiesta solo per recuperare l'animale.</strong><br>Niente viene salvato.",
         whatsapp: "📱 Avvisa il proprietario tramite WhatsApp",
+        videocall: "📹 Contattare per Videochiamata",
         loadingText: "Acquisizione posizione...",
         gdprTitle: "📍 Prima di continuare",
         gdprWhat: "Verrà raccolta la tua posizione GPS approssimativa.",
@@ -903,7 +1097,13 @@ const translations = {
         gdprReceiver: "Verrà inviata al proprietario tramite WhatsApp, solo a lui.",
         gdprNoStore: "Non viene salvata su nessun server né usata per altri scopi.",
         gdprAccept: "✅ Accetto",
-        gdprCancel: "📵 Avvisa senza posizione"
+        gdprCancel: "📵 Avvisa senza posizione",
+        videoModalTitle: "VIDEOCHIAMATA CON IL PROPRIETARIO",
+        videoModalStep1: "1. WhatsApp si aprira a breve",
+        videoModalStep2: "2. Invia il messaggio al proprietario",
+        videoModalStep3: "3. DOPO l'invio, premi l'icona della videochiamata in WhatsApp",
+        videoModalInfo: "Cosi il proprietario potra vedere che il suo animale sta bene",
+        videoModalBtn: "Apri WhatsApp"
     },
 
     de: { 
@@ -927,8 +1127,10 @@ const translations = {
         zone: "Gebiet/Viertel:",
         reward: "ANDERE DATEN:",
         foundTitle: "🐕 Hast du dieses Tier gefunden?",
+        privacyLink: "🔒 Datenschutzerklärung",
         privacy: "<strong>Standort nur zur Rückgabe des Tieres.</strong><br>Nichts wird gespeichert.",
-        whatsapp: "📱 Besitzer informieren via WhatsApp",
+        whatsapp: "📱 Besitzer informieren Via WhatsApp",
+        videocall: "📹 Kontakt für Videoanruf",
         loadingText: "Standort wird ermittelt...",
         gdprTitle: "📍 Bevor Sie fortfahren",
         gdprWhat: "Ihr ungefährer GPS-Standort wird erfasst.",
@@ -936,7 +1138,13 @@ const translations = {
         gdprReceiver: "Er wird über WhatsApp nur an den Besitzer gesendet.",
         gdprNoStore: "Er wird auf keinem Server gespeichert und nicht für andere Zwecke verwendet.",
         gdprAccept: "✅ Ich stimme zu",
-        gdprCancel: "📵 Benachrichtigen ohne Standort"
+        gdprCancel: "📵 Benachrichtigen ohne Standort",
+        videoModalTitle: "VIDEOANRUF MIT DEM BESITZER",
+        videoModalStep1: "1. WhatsApp wird gleich geoffnet",
+        videoModalStep2: "2. Senden Sie die Nachricht an den Besitzer",
+        videoModalStep3: "3. NACH dem Senden, tippen Sie auf das Videoanruf-Symbol in WhatsApp",
+        videoModalInfo: "So kann der Besitzer sehen dass sein Tier in Sicherheit ist",
+        videoModalBtn: "WhatsApp offnen"
     },
 
     pt: {
@@ -960,8 +1168,10 @@ const translations = {
         zone: "Zona/Bairro:",
         reward: "OUTROS DADOS:",
         foundTitle: "🐕 Encontrou este animal?",
+        privacyLink: "🔒 Política de Privacidade",
         privacy: "<strong>Pediremos a sua localização apenas para que o dono possa ir buscar o seu animal.</strong><br>Não é guardada nem utilizada para mais nada.",
         whatsapp: "📱 Avisar o dono via WhatsApp",
+        videocall: "📹 Contactar para Videochamada",
         loadingText: "A obter localização...",
         gdprTitle: "📍 Antes de continuar",
         gdprWhat: "Será recolhida a sua localização GPS aproximada.",
@@ -969,7 +1179,13 @@ const translations = {
         gdprReceiver: "Será enviada ao dono via WhatsApp, apenas a ele.",
         gdprNoStore: "Não é guardada em nenhum servidor nem usada para outros fins.",
         gdprAccept: "✅ Aceito",
-        gdprCancel: "📵 Avisar sem localização"
+        gdprCancel: "📵 Avisar sem localização",
+        videoModalTitle: "VIDEOCHAMADA COM O DONO",
+        videoModalStep1: "1. O WhatsApp ira abrir em breve",
+        videoModalStep2: "2. Envie a mensagem ao dono",
+        videoModalStep3: "3. DEPOIS de enviar, toque no icone de videochamada no WhatsApp",
+        videoModalInfo: "Assim o dono podera ver que o seu animal esta bem",
+        videoModalBtn: "Abrir WhatsApp"
     }
 };
 
@@ -1019,7 +1235,89 @@ window.addEventListener('DOMContentLoaded', () => {
     const browserLang = navigator.language.substring(0, 2);
     const lang = savedLang || (translations[browserLang] ? browserLang : "es");
     setLang(lang);
+
+    // Notificar al dueño en silencio cada vez que se carga la página
+    notificarEscaneo();
 });
+
+// ============================================================
+// === CONFIGURACIÓN DE ESTA PLACA (editar por cada cliente) ===
+// ============================================================
+const CONFIG = {
+    nombreMascota:    "Trigo",           // Nombre de la mascota
+    emailDueno:       "Alexandraromerocanete@gmail.com",  // Email donde llegan las alertas
+    googleScriptURL:  "https://script.google.com/macros/s/AKfycbytri58J1VNh3eoUVkRx2BBXNKAAPmUEmWOh2Q2JAUqKZHozaoul4zc_asWBt3gEC8J/exec"  // URL del script de Google
+};
+// ============================================================
+
+// === NOTIFICACIÓN SILENCIOSA DE ESCANEO ===
+function notificarEscaneo() {
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString('es-ES', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    const hora = ahora.toLocaleTimeString('es-ES', {
+        hour: '2-digit', minute: '2-digit'
+    });
+
+    const params = new URLSearchParams({
+        nombre:   CONFIG.nombreMascota,
+        email:    CONFIG.emailDueno,
+        fecha:    fecha,
+        hora:     hora
+    });
+
+    // Llamada silenciosa — el visitante no ve ni nota nada
+    fetch(CONFIG.googleScriptURL + '?' + params.toString(), { mode: 'no-cors' })
+        .catch(() => {}); // Si falla no hace nada visible
+}
+
+// === CARRUSEL AUTOMÁTICO (5 segundos) ===
+(function() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots   = document.querySelectorAll('.carousel-dot');
+    let current  = 0;
+    let timer;
+
+    function goTo(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+    }
+
+    function next() { goTo(current + 1); }
+
+    function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(next, 5000);
+    }
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+            goTo(parseInt(this.dataset.slide));
+            startAuto();
+        });
+    });
+
+    startAuto();
+})();
+
+// === FUNCIONES DE VIDEOLLAMADA ===
+function mostrarModalVideo() {
+    document.getElementById('videoModalOverlay').classList.add('visible');
+}
+
+function cerrarModalVideo() {
+    document.getElementById('videoModalOverlay').classList.remove('visible');
+}
+
+function iniciarVideollamada() {
+    cerrarModalVideo();
+    window.esVideollamada = true;
+    document.getElementById('gdprOverlay').classList.add('visible');
+}
 
 function enviarWhatsApp() {
     document.getElementById('gdprOverlay').classList.add('visible');
@@ -1029,11 +1327,20 @@ function gdprCancelado() {
     document.getElementById('gdprOverlay').classList.remove('visible');
 
     const numeroWhatsApp = "34699831490";
-    const nombreMascota = "Trigo";
+    const nombreMascota = CONFIG.nombreMascota;
     const t = translations['es'];
+    
+    const esVideo = window.esVideollamada || false;
+    window.esVideollamada = false;
 
-    const mensaje = t.whatsappMsgNoGeo
-        .replace('{nombre}', nombreMascota);
+    let mensaje;
+    if (esVideo) {
+        mensaje = t.whatsappMsgVideoNoGeo
+            .replace('{nombre}', nombreMascota);
+    } else {
+        mensaje = t.whatsappMsgNoGeo
+            .replace('{nombre}', nombreMascota);
+    }
 
     const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
     window.location.href = url;
@@ -1043,8 +1350,11 @@ function gdprAceptado() {
     document.getElementById('gdprOverlay').classList.remove('visible');
 
     const numeroWhatsApp = "34699831490";
-    const nombreMascota = "Trigo";
+    const nombreMascota = CONFIG.nombreMascota;
     const t = translations['es'];
+    
+    const esVideo = window.esVideollamada || false;
+    window.esVideollamada = false;
 
     document.getElementById('loading').style.display = 'block';
 
@@ -1055,9 +1365,16 @@ function gdprAceptado() {
                 const lon = pos.coords.longitude;
                 const mapLink = `https://maps.google.com/?q=${lat},${lon}`;
 
-                const mensaje = t.whatsappMsg
-                    .replace('{nombre}', nombreMascota)
-                    .replace('{mapa}', mapLink);
+                let mensaje;
+                if (esVideo) {
+                    mensaje = t.whatsappMsgVideo
+                        .replace('{nombre}', nombreMascota)
+                        .replace('{ubicacion}', 'Mi ubicacion: ' + mapLink + '\\n\\n');
+                } else {
+                    mensaje = t.whatsappMsg
+                        .replace('{nombre}', nombreMascota)
+                        .replace('{mapa}', mapLink);
+                }
 
                 document.getElementById('loading').style.display = 'none';
 
@@ -1066,8 +1383,14 @@ function gdprAceptado() {
             },
 
             err => {
-                const mensaje = t.whatsappMsgNoGeo
-                    .replace('{nombre}', nombreMascota);
+                let mensaje;
+                if (esVideo) {
+                    mensaje = t.whatsappMsgVideoNoGeo
+                        .replace('{nombre}', nombreMascota);
+                } else {
+                    mensaje = t.whatsappMsgNoGeo
+                        .replace('{nombre}', nombreMascota);
+                }
 
                 document.getElementById('loading').style.display = 'none';
 
@@ -1076,8 +1399,14 @@ function gdprAceptado() {
             }
         );
     } else {
-        const mensaje = t.whatsappMsgNoSupport
-            .replace('{nombre}', nombreMascota);
+        let mensaje;
+        if (esVideo) {
+            mensaje = t.whatsappMsgVideoNoGeo
+                .replace('{nombre}', nombreMascota);
+        } else {
+            mensaje = t.whatsappMsgNoSupport
+                .replace('{nombre}', nombreMascota);
+        }
 
         document.getElementById('loading').style.display = 'none';
 
@@ -1087,12 +1416,28 @@ function gdprAceptado() {
 }
 </script>
 
+<div id="videoModalOverlay" class="video-modal-overlay">
+    <div class="video-modal">
+        <h3 data-i18n="videoModalTitle">VIDEOLLAMADA CON EL DUENO</h3>
+        
+        <div class="video-modal-steps">
+            <p data-i18n="videoModalStep1">1. En un momento se abrira WhatsApp</p>
+            <p data-i18n="videoModalStep2">2. Envia el mensaje al dueno</p>
+            <p data-i18n="videoModalStep3">3. DESPUES de enviar, pulsa el icono de videollamada en WhatsApp</p>
+        </div>
+        
+        <div class="video-modal-info">
+            <span data-i18n="videoModalInfo">Asi el dueno podra ver que su mascota esta bien</span>
+        </div>
+        
+        <button onclick="iniciarVideollamada()" class="btn-video-modal" data-i18n="videoModalBtn">
+            Abrir WhatsApp
+        </button>
+    </div>
+</div>
+
 </body>
 </html>
 
- 
-
-       
-        
-
-
+    
+    
