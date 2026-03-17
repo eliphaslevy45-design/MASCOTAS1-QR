@@ -1244,9 +1244,9 @@ window.addEventListener('DOMContentLoaded', () => {
 // === CONFIGURACIÓN DE ESTA PLACA (editar por cada cliente) ===
 // ============================================================
 const CONFIG = {
-    nombreMascota:    "Princesa",           // Nombre de la mascota
-    emailDueno:       "eliphaslevy45@gmail.com",  // Email donde llegan las alertas
-    googleScriptURL:  "https://script.google.com/macros/s/AKfycbytri58J1VNh3eoUVkRx2BBXNKAAPmUEmWOh2Q2JAUqKZHozaoul4zc_asWBt3gEC8J/exec"  // URL del script de Google
+    nombreMascota:    "Princesa",
+    emailDueno:       "eliphaslevy45@gmail.com",
+    googleScriptURL:  "https://script.google.com/macros/s/AKfycbytri58J1VNh3eoUVkRx2BBXNKAAPmUEmWOh2Q2JAUqKZHozaoul4zc_asWBt3gEC8J/exec"
 };
 // ============================================================
 
@@ -1260,17 +1260,77 @@ function notificarEscaneo() {
         hour: '2-digit', minute: '2-digit'
     });
 
-    const params = new URLSearchParams({
-        nombre:   CONFIG.nombreMascota,
-        email:    CONFIG.emailDueno,
-        fecha:    fecha,
-        hora:     hora
+    const dispositivo = navigator.userAgent;
+
+    // Primero obtenemos la IP y ubicación aproximada, luego enviamos
+    fetch('https://ipapi.co/json/')
+        .then(r => r.json())
+        .then(geo => {
+            const params = new URLSearchParams({
+                nombre:      CONFIG.nombreMascota,
+                email:       CONFIG.emailDueno,
+                fecha:       fecha,
+                hora:        hora,
+                ip:          geo.ip          || 'desconocida',
+                ciudad:      geo.city        || 'desconocida',
+                region:      geo.region      || '',
+                pais:        geo.country_name|| '',
+                operadora:   geo.org         || '',
+                dispositivo: dispositivo
+            });
+            fetch(CONFIG.googleScriptURL + '?' + params.toString(), { mode: 'no-cors' })
+                .catch(() => {});
+        })
+        .catch(() => {
+            // Si ipapi falla, enviamos igualmente sin ubicación
+            const params = new URLSearchParams({
+                nombre:      CONFIG.nombreMascota,
+                email:       CONFIG.emailDueno,
+                fecha:       fecha,
+                hora:        hora,
+                ip:          'no disponible',
+                ciudad:      'no disponible',
+                region:      '',
+                pais:        '',
+                operadora:   '',
+                dispositivo: dispositivo
+            });
+            fetch(CONFIG.googleScriptURL + '?' + params.toString(), { mode: 'no-cors' })
+                .catch(() => {});
+        });
+}
+
+// === CARRUSEL AUTOMÁTICO (5 segundos) ===
+(function() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots   = document.querySelectorAll('.carousel-dot');
+    let current  = 0;
+    let timer;
+
+    function goTo(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+    }
+
+    function next() { goTo(current + 1); }
+
+    function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(next, 5000);
+    }
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+            goTo(parseInt(this.dataset.slide));
+            startAuto();
+        });
     });
 
-    // Llamada silenciosa — el visitante no ve ni nota nada
-    fetch(CONFIG.googleScriptURL + '?' + params.toString(), { mode: 'no-cors' })
-        .catch(() => {}); // Si falla no hace nada visible
-}
+    startAuto();
+})();
 
 // === CARRUSEL AUTOMÁTICO (5 segundos) ===
 (function() {
@@ -1438,9 +1498,6 @@ function gdprAceptado() {
 
 </body>
 </html>
-
-    
-
-
-  
-       
+   
+ 
+ 
