@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad · NITH-AIAH GEO-QR</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Política de privacidad del servicio NITH-AIAH GEO-QR - Tratamiento de datos de propietarios y usuarios">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+:root {
+    --morado:    #d4a5d4;
+    --azul:      #a8c8e4;
+    --verde:     #2e7d32;
+    --texto:     #2c3e50;
+    --gris:      #f5f7fa;
+    --borde:     #e9ecef;
+    --sombra:    rgba(0,0,0,0.08);
+    --purpura-oscuro: #6a3d8f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: var(--gris);
+    color: var(--texto);
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+/* ── HEADER ── */
+.header {
+    background: linear-gradient(135deg, var(--morado), var(--azul));
+    text-align: center;
+    padding: 40px 20px 35px;
+    box-shadow: 0 2px 15px var(--sombra);
+}
+
+.header img {
+    max-width: 160px;
+    height: auto;
+    margin-bottom: 18px;
+}
+
+.header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--texto);
+    letter-spacing: 0.5px;
+}
+
+.header .tagline {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--texto);
+    margin-top: 8px;
+    opacity: 0.75;
+}
+
+/* ── CONTENEDOR ── */
+.container {
+    max-width: 900px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+}
+
+/* ── BADGE ── */
+.update-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px var(--sombra);
+}
+
+/* ── INTRO BOX ── */
+.intro-box {
+    background: linear-gradient(135deg, #fff9e6, #fffbf0);
+    border: 2px solid #ffd54f;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(255, 213, 79, 0.2);
+}
+
+.intro-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    color: var(--purpura-oscuro);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.intro-box p {
+    font-size: 15px;
+    color: #5d4037;
+    margin-bottom: 10px;
+    line-height: 1.7;
+}
+
+.intro-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+    background: linear-gradient(135deg, rgba(106,61,143,0.1), rgba(168,200,228,0.1));
+    border-left: 5px solid var(--purpura-oscuro);
+    border-radius: 10px;
+    padding: 20px 26px;
+    margin: 40px 0 30px;
+    box-shadow: 0 3px 12px var(--sombra);
+}
+
+.section-divider h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--purpura-oscuro);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-divider .section-icon {
+    font-size: 30px;
+}
+
+.section-divider p {
+    font-size: 15px;
+    color: #666;
+    margin: 0;
+    font-style: italic;
+}
+
+/* ── TARJETAS ── */
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px var(--sombra);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 30px;
+    border-bottom: 2px solid var(--borde);
+    background: linear-gradient(135deg, rgba(212,165,212,0.12), rgba(168,200,228,0.12));
+}
+
+.card-header .icon {
+    font-size: 26px;
+    flex-shrink: 0;
+}
+
+.card-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--purpura-oscuro);
+    margin: 0;
+}
+
+.card-body {
+    padding: 26px 30px;
+}
+
+.card-body p {
+    margin-bottom: 14px;
+    color: #444;
+    font-size: 15px;
+}
+
+.card-body p:last-child {
+    margin-bottom: 0;
+}
+
+.card-body ul {
+    margin: 14px 0;
+    padding-left: 24px;
+}
+
+.card-body ul li {
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 15px;
+}
+
+.card-body strong {
+    color: var(--texto);
+}
+
+/* ── TABLA DE CONSERVACIÓN ── */
+.storage-table {
+    background: var(--gris);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.storage-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.storage-row:last-child {
+    border-bottom: none;
+}
+
+.storage-label {
+    font-weight: 700;
+    color: var(--purpura-oscuro);
+    font-size: 14px;
+}
+
+.storage-value {
+    color: #444;
+    font-size: 14px;
+}
+
+/* ── TABLA DE DERECHOS ── */
+.rights-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.right-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--gris);
+    border-radius: 10px;
+    padding: 16px;
+    border-left: 4px solid var(--morado);
+}
+
+.right-item .right-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.right-item .right-text strong {
+    display: block;
+    color: var(--texto);
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.right-item .right-text span {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ── ALERT BOX ── */
+.alert-box {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    border: 1px solid #a5d6a7;
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin: 16px 0;
+}
+
+.alert-box .alert-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.alert-box p {
+    margin: 0 !important;
+    font-size: 14px;
+    color: var(--verde);
+    line-height: 1.6;
+}
+
+.alert-box.info {
+    background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
+    border-color: #bbdefb;
+}
+
+.alert-box.info p {
+    color: #1565c0;
+}
+
+.alert-box.warning {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border-color: #ffb74d;
+}
+
+.alert-box.warning p {
+    color: #e65100;
+}
+
+/* ── AEPD BANNER ── */
+.aepd-banner {
+    background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
+    border: 1px solid #bbdefb;
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.aepd-banner .alert-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.aepd-banner p {
+    margin: 0 !important;
+    font-size: 14px;
+    color: #1565c0;
+    line-height: 1.6;
+}
+
+.aepd-banner a {
+    color: #1565c0;
+    font-weight: 700;
+}
+
+/* ── RESPONSABLE ── */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.contact-item {
+    background: var(--gris);
+    border-radius: 8px;
+    padding: 14px 16px;
+}
+
+.contact-item .label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.contact-item .value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--texto);
+}
+
+.contact-item .value a {
+    color: var(--purpura-oscuro);
+    text-decoration: none;
+}
+
+.contact-item .value a:hover {
+    text-decoration: underline;
+}
+
+/* ── FOOTER ── */
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 13px;
+    color: #aaa;
+    border-top: 1px solid var(--borde);
+}
+
+.footer a {
+    color: #a07ab0;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--morado), var(--azul));
+    color: var(--texto);
+    padding: 12px 24px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(212,165,212,0.4);
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212,165,212,0.6);
+    text-decoration: none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+    .card-header { padding: 18px 20px; }
+    .card-body   { padding: 20px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .storage-row { grid-template-columns: 1fr; gap: 8px; }
+    .header h1 { font-size: 22px; }
+    .section-divider h2 { font-size: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <img src="img/logo.webp" alt="NITH-AIAH Rescate de Mascotas" onerror="this.style.display='none'">
+    <h1>Política de Privacidad</h1>
+    <div class="tagline">NITH-AIAH GEO-QR · Rescate y Protección de Mascotas</div>
+</div>
+
+<div class="container">
+
+    <div class="update-badge">
+        📅 Última actualización: febrero de 2026
+    </div>
+
+    <!-- INTRODUCCIÓN -->
+    <div class="intro-box">
+        <h3>🔍 Información importante antes de leer</h3>
+        <p><strong>Este documento informa sobre dos tratamientos de datos personales diferentes:</strong></p>
+        <p><strong>1.</strong> Si usted es <strong>propietario de una mascota</strong> con nuestro servicio, sus datos y los de su mascota están publicados en una página web vinculada a un código QR.</p>
+        <p><strong>2.</strong> Si usted <strong>encontró una mascota</strong> y escaneó el código QR de su placa, podemos pedirle su ubicación GPS para enviarla al propietario.</p>
+        <p>Lea la sección que corresponda a su situación, o ambas si desea información completa.</p>
+    </div>
+
+    <!-- RESPONSABLE -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🏢</span>
+            <h3>Responsable del Tratamiento</h3>
+        </div>
+        <div class="card-body">
+            <p>De conformidad con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), el responsable del tratamiento de todos los datos personales recogidos a través de este servicio es:</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="label">Nombre / Razón social</div>
+                    <div class="value">NITH-AIAH Rescate y Protección de Mascotas</div>
+                </div>
+                <div class="contact-item">
+                    <div class="label">NIF / CIF</div>
+                    <div class="value">45771527D</div>
+                </div>
+                <div class="contact-item">
+                    <div class="label">Correo de contacto</div>
+                    <div class="value"><a href="mailto:25.nith.aiah.25@gmail.com">25.nith.aiah.25@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="label">Domicilio</div>
+                    <div class="value">Las Palmas de Gran Canaria, Islas Canarias, España</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SECCIÓN I — PROPIETARIOS -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <div class="section-divider">
+        <h2><span class="section-icon">👤</span> I. SI USTED ES PROPIETARIO DE UNA MASCOTA CON NUESTRO SERVICIO</h2>
+        <p>Esta sección explica qué pasa con sus datos personales y los de su mascota cuando contrata el servicio NITH-AIAH GEO-QR.</p>
+    </div>
+
+    <!-- 1. Datos recogidos -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">📋</span>
+            <h3>Qué datos recogemos de usted</h3>
+        </div>
+        <div class="card-body">
+            <p>Cuando solicita el servicio de placa identificativa con código QR, recogemos los siguientes datos personales:</p>
+            <p><strong>Del propietario:</strong></p>
+            <ul>
+                <li>Nombre y apellidos</li>
+                <li>DNI / NIE / Pasaporte</li>
+                <li>Teléfono principal</li>
+                <li>Teléfono secundario (opcional)</li>
+                <li>Correo electrónico (opcional)</li>
+                <li>Domicilio y localidad</li>
+            </ul>
+            <p><strong>De la mascota:</strong></p>
+            <ul>
+                <li>Nombre</li>
+                <li>Fotografía</li>
+                <li>Especie y raza</li>
+                <li>Número de microchip (opcional)</li>
+                <li>Estado de salud (alergias, medicación)</li>
+                <li>Carácter y comportamiento</li>
+                <li>Zona o barrio habitual</li>
+                <li>Recompensa ofrecida (opcional)</li>
+            </ul>
+            <div class="alert-box warning">
+                <span class="alert-icon">⚠️</span>
+                <p><strong>Importante:</strong> Solo se publicarán en la página web del código QR los datos que usted autorice expresamente marcando las casillas correspondientes en el formulario de consentimiento. El resto de datos se usan únicamente para gestión interna del servicio.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Finalidades -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🎯</span>
+            <h3>Para qué usamos sus datos</h3>
+        </div>
+        <div class="card-body">
+            <p>Sus datos se tratan con las siguientes finalidades específicas:</p>
+            <p><strong>a) Fabricación de la placa identificativa con código QR y publicación de la página web asociada</strong><br>
+            Base legal: Artículo 6.1.a del RGPD (consentimiento explícito) + Artículo 6.1.b del RGPD (ejecución del contrato de servicio).</p>
+            <p><strong>b) Gestión administrativa del servicio</strong> (atención de incidencias, garantías, modificaciones solicitadas)<br>
+            Base legal: Artículo 6.1.b del RGPD (ejecución del contrato).</p>
+            <p><strong>c) Conservación de documentación fiscal y contable</strong><br>
+            Base legal: Artículo 6.1.c del RGPD (obligación legal según Ley General Tributaria y Código de Comercio).</p>
+        </div>
+    </div>
+
+    <!-- 3. Plazo de conservación -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">⏰</span>
+            <h3>Cuánto tiempo conservamos sus datos</h3>
+        </div>
+        <div class="card-body">
+            <p>Sus datos se conservan en tres ubicaciones distintas con plazos diferentes:</p>
+            <div class="storage-table">
+                <div class="storage-row">
+                    <div class="storage-label">📄 Formulario físico original</div>
+                    <div class="storage-value">Se destruye de forma segura mediante trituración en el plazo de <strong>30 días</strong> desde la entrega de la placa.</div>
+                </div>
+                <div class="storage-row">
+                    <div class="storage-label">💾 Base de datos interna de gestión</div>
+                    <div class="storage-value">Se conservan mientras el servicio esté activo (para atender solicitudes, incidencias y garantías) y durante <strong>5 años adicionales</strong> tras su finalización, por obligaciones legales de conservación de documentación fiscal y contable. Los datos están protegidos mediante contraseña robusta, encriptación de backups y acceso restringido.</div>
+                </div>
+                <div class="storage-row">
+                    <div class="storage-label">🌐 Página web pública (código QR)</div>
+                    <div class="storage-value">Permanece activa <strong>indefinidamente</strong> mientras el servicio esté vigente. Será <strong>eliminada en 48 horas</strong> desde que usted lo solicite por escrito a 25.nith.aiah.25@gmail.com</div>
+                </div>
+            </div>
+            <div class="alert-box info">
+                <span class="alert-icon">💡</span>
+                <p><strong>Puede solicitar la eliminación de la página web en cualquier momento</strong> escribiendo a 25.nith.aiah.25@gmail.com. Procesaremos su solicitud en menos de 48 horas. La eliminación incluye todos los datos personales publicados (fotografía, teléfonos, información de la mascota).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Dónde se alojan -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🌍</span>
+            <h3>Dónde se alojan sus datos y transferencias internacionales</h3>
+        </div>
+        <div class="card-body">
+            <p>La página web pública vinculada al código QR (donde se publican los datos que usted autorizó) está alojada en:</p>
+            <p><strong>GitHub Pages (GitHub, Inc.)</strong><br>
+            Servidores ubicados en Estados Unidos. GitHub, Inc. está adherida al Marco de Privacidad de Datos UE-EE.UU. (Data Privacy Framework), que garantiza un nivel adecuado de protección para las transferencias de datos personales desde la Unión Europea a Estados Unidos.<br>
+            Política de privacidad: <a href="https://docs.github.com/es/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">docs.github.com/es/site-policy/privacy-policies</a></p>
+            <p>Nuestra base de datos interna de gestión permanece alojada en territorio de la Unión Europea.</p>
+        </div>
+    </div>
+
+    <!-- 5. Destinatarios -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🔗</span>
+            <h3>A quién se comunican sus datos</h3>
+        </div>
+        <div class="card-body">
+            <p>Sus datos no se ceden a terceros con fines comerciales. Sin embargo, por la propia naturaleza del servicio:</p>
+            <p><strong>La página web vinculada al código QR es accesible públicamente por internet</strong> —esa es precisamente su función— para que quien encuentre a su mascota pueda ver los datos que usted autorizó y contactarle.</p>
+            <p>Los datos no se comparten con empresas, organismos ni bases de datos externas, salvo la infraestructura técnica de alojamiento web (GitHub Pages) mencionada en el apartado anterior.</p>
+        </div>
+    </div>
+
+    <!-- 6. Sus derechos -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🛡️</span>
+            <h3>Sus derechos sobre sus datos</h3>
+        </div>
+        <div class="card-body">
+            <p>Puede ejercer los siguientes derechos en cualquier momento dirigiendo un correo electrónico a <strong>25.nith.aiah.25@gmail.com</strong>, indicando su nombre, DNI y la referencia de su mascota:</p>
+            <div class="rights-grid">
+                <div class="right-item">
+                    <span class="right-icon">👁️</span>
+                    <div class="right-text">
+                        <strong>Derecho de Acceso</strong>
+                        <span>Obtener confirmación de si estamos tratando sus datos y copia de los mismos.</span>
+                    </div>
+                </div>
+                <div class="right-item">
+                    <span class="right-icon">✏️</span>
+                    <div class="right-text">
+                        <strong>Derecho de Rectificación</strong>
+                        <span>Corregir datos inexactos o incompletos (por ejemplo, cambio de teléfono).</span>
+                    </div>
+                </div>
+                <div class="right-item">
+                    <span class="right-icon">🗑️</span>
+                    <div class="right-text">
+                        <strong>Derecho de Supresión</strong>
+                        <span>Solicitar la eliminación de la página web del QR y de todos sus datos.</span>
+                    </div>
+                </div>
+                <div class="right-item">
+                    <span class="right-icon">⏸️</span>
+                    <div class="right-text">
+                        <strong>Derecho de Limitación</strong>
+                        <span>Solicitar que restrinjamos el tratamiento de sus datos en determinadas circunstancias.</span>
+                    </div>
+                </div>
+                <div class="right-item">
+                    <span class="right-icon">🚫</span>
+                    <div class="right-text">
+                        <strong>Derecho de Oposición</strong>
+                        <span>Oponerse al tratamiento de sus datos por motivos relacionados con su situación particular.</span>
+                    </div>
+                </div>
+                <div class="right-item">
+                    <span class="right-icon">📦</span>
+                    <div class="right-text">
+                        <strong>Derecho de Portabilidad</strong>
+                        <span>Recibir sus datos en formato estructurado y de uso común.</span>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top:16px;"><strong>Plazo de respuesta:</strong> Responderemos a su solicitud en el plazo de <strong>1 mes</strong> desde su recepción, prorrogable hasta <strong>3 meses</strong> en casos complejos, informándole de la prórroga en su caso.</p>
+        </div>
+    </div>
+
+    <!-- 7. Retirar consentimiento -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">↩️</span>
+            <h3>Derecho a retirar el consentimiento</h3>
+        </div>
+        <div class="card-body">
+            <p>Puede retirar su consentimiento en cualquier momento escribiendo a <strong>25.nith.aiah.25@gmail.com</strong>.</p>
+            <p>La retirada del consentimiento no afectará a la licitud del tratamiento realizado previamente, pero implicará que eliminaremos la página web del código QR y no podremos continuar prestando el servicio.</p>
+            <p>Los datos conservados por obligación legal (documentación fiscal - 5 años) permanecerán en nuestra base de datos interna el tiempo legalmente exigido, aunque la web pública se eliminará.</p>
+        </div>
+    </div>
+
+    <!-- 8. Consecuencias -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">❗</span>
+            <h3>Consecuencias de no facilitar los datos</h3>
+        </div>
+        <div class="card-body">
+            <p>La aportación de los datos personales solicitados en el formulario de solicitud del servicio es <strong>requisito necesario</strong> para poder fabricar la placa identificativa y prestar el servicio contratado.</p>
+            <p>Su no aportación impedirá la prestación del servicio, ya que necesitamos al menos el nombre de la mascota, su fotografía y un teléfono de contacto para cumplir con la finalidad del servicio.</p>
+        </div>
+    </div>
+
+    <!-- 9. Decisiones automatizadas -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🤖</span>
+            <h3>Decisiones automatizadas y elaboración de perfiles</h3>
+        </div>
+        <div class="card-body">
+            <p>No se realizan decisiones automatizadas ni elaboración de perfiles con sus datos personales.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SECCIÓN II — USUARIOS QUE ENCUENTRAN -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <div class="section-divider" style="margin-top:50px;">
+        <h2><span class="section-icon">📍</span> II. SI USTED ENCONTRÓ UNA MASCOTA Y ESCANEÓ EL CÓDIGO QR</h2>
+        <p>Esta sección explica qué pasa con su ubicación GPS cuando ayuda a recuperar una mascota extraviada.</p>
+    </div>
+
+    <!-- 10. Datos recogidos -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🗺️</span>
+            <h3>Qué dato recogemos de usted</h3>
+        </div>
+        <div class="card-body">
+            <p>Este servicio recoge <strong>únicamente su ubicación GPS aproximada</strong>, y exclusivamente cuando usted otorga su consentimiento expreso pulsando el botón "Acepto" en el diálogo de confirmación que aparece en pantalla.</p>
+            <p>Este servicio <strong>no recoge</strong> su nombre, correo electrónico, número de teléfono, dirección IP, cookies, datos de navegación ni ningún otro dato personal suyo.</p>
+            <div class="alert-box">
+                <span class="alert-icon">🔒</span>
+                <p><strong>El dato de ubicación NO se almacena en ningún servidor, base de datos ni sistema propio de NITH-AIAH.</strong> Su único recorrido es: su dispositivo → mensaje de WhatsApp → propietario de la mascota. Una vez enviado, NITH-AIAH no tiene acceso ni control sobre dicho dato.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 11. Finalidad -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🎯</span>
+            <h3>Para qué se usa su ubicación</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Finalidad exclusiva:</strong> facilitar al propietario de la mascota la localización del lugar aproximado donde se encuentra su animal, enviando dicha ubicación a través de WhatsApp en un mensaje privado al número de teléfono del propietario.</p>
+            <p><strong>Base legal:</strong> Artículo 6.1.a del RGPD (consentimiento explícito del interesado), prestado de forma libre, específica, informada e inequívoca a través del diálogo de confirmación que aparece en pantalla antes de ejecutarse cualquier acción técnica de geolocalización.</p>
+            <p>Puede en todo momento <strong>no otorgar su consentimiento</strong> y aun así enviar el aviso al propietario sin incluir su ubicación, utilizando el botón "Avisar sin ubicación" habilitado a tal efecto.</p>
+        </div>
+    </div>
+
+    <!-- 12. Servicios de terceros -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🔗</span>
+            <h3>Servicios de terceros por los que transita su ubicación</h3>
+        </div>
+        <div class="card-body">
+            <p>En el proceso de envío intervienen dos servicios externos, ajenos a NITH-AIAH, con sus propias políticas de privacidad:</p>
+            <p><strong>1. WhatsApp (Meta Platforms Ireland Ltd.)</strong><br>
+            Actúa como canal de transmisión del mensaje. Los servidores de WhatsApp están ubicados en la Unión Europea y Estados Unidos. Meta Platforms está adherida a las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea para transferencias internacionales de datos.<br>
+            Política de privacidad: <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">whatsapp.com/legal/privacy-policy</a></p>
+            <p><strong>2. Google Maps (Google LLC)</strong><br>
+            El enlace de ubicación generado usa el servicio de mapas de Google. Google LLC está adherida al Marco de Privacidad de Datos UE-EE.UU.<br>
+            Política de privacidad: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+            <p>NITH-AIAH no cede datos a estos terceros de forma directa; es su propio dispositivo el que genera y transmite la información al hacer uso de dichos servicios.</p>
+        </div>
+    </div>
+
+    <!-- 13. Sus derechos limitados -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🛡️</span>
+            <h3>Sus derechos respecto a la ubicación</h3>
+        </div>
+        <div class="card-body">
+            <p>El RGPD reconoce a toda persona los derechos de acceso, rectificación, supresión, limitación, oposición y portabilidad respecto al tratamiento de sus datos personales.</p>
+            <div class="alert-box warning">
+                <span class="alert-icon">ℹ️</span>
+                <p><strong>Nota importante sobre el ejercicio de estos derechos:</strong> dado que NITH-AIAH no almacena ni retiene ningún dato de ubicación en sus sistemas, el ejercicio práctico de la mayoría de estos derechos no resulta aplicable en este servicio concreto. El dato de ubicación no existe en ningún fichero o sistema propio una vez transmitido. En cualquier caso, puede dirigir sus consultas o solicitudes a <strong>25.nith.aiah.25@gmail.com</strong> y recibirá respuesta en el plazo de 1 mes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SECCIONES COMUNES -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- 14. Medidas de seguridad -->
+    <div class="card" style="margin-top:40px;">
+        <div class="card-header">
+            <span class="icon">🔐</span>
+            <h3>Medidas de seguridad aplicadas</h3>
+        </div>
+        <div class="card-body">
+            <p>NITH-AIAH ha adoptado las medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado al riesgo del tratamiento:</p>
+            <ul>
+                <li>Contraseñas robustas y acceso restringido exclusivamente al personal autorizado</li>
+                <li>Copias de seguridad encriptadas de la base de datos interna</li>
+                <li>Protocolo de respuesta ante posibles brechas de seguridad conforme a los Artículos 33 y 34 del RGPD</li>
+                <li>Formación del personal en materia de protección de datos</li>
+                <li>Auditorías periódicas de cumplimiento normativo</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 15. Reclamaciones -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">📮</span>
+            <h3>Derecho a presentar una reclamación</h3>
+        </div>
+        <div class="card-body">
+            <p>Si considera que el tratamiento de sus datos no se ajusta a la normativa vigente, tiene derecho a presentar una reclamación ante la autoridad de control competente en España:</p>
+            <div class="aepd-banner">
+                <span class="alert-icon">🏛️</span>
+                <p><strong>Agencia Española de Protección de Datos (AEPD)</strong><br>
+                C/ Jorge Juan, 6 · 28001 Madrid<br>
+                Web: <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a> · Teléfono: 901 100 099</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 16. Modificaciones -->
+    <div class="card">
+        <div class="card-header">
+            <span class="icon">🔄</span>
+            <h3>Modificaciones de esta política</h3>
+        </div>
+        <div class="card-body">
+            <p>NITH-AIAH se reserva el derecho a actualizar esta política de privacidad para adaptarla a cambios normativos, resoluciones de la AEPD o modificaciones del servicio.</p>
+            <p>La fecha de última actualización figura siempre al inicio del documento. Le recomendamos consultarla periódicamente.</p>
+            <p>Si se realizan cambios sustanciales que afecten a sus derechos, le informaremos por los medios de contacto que nos haya facilitado.</p>
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+        <a href="javascript:history.back()" class="back-btn">← Volver a la página anterior</a>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>NITH-AIAH · Rescate y Protección de Mascotas · Las Palmas de Gran Canaria, España</p>
+    <p style="margin-top:8px;">Cumplimiento del Reglamento (UE) 2016/679 y Ley Orgánica 3/2018 de Protección de Datos</p>
+    <p style="margin-top:12px;">
+        <a href="mailto:25.nith.aiah.25@gmail.com">25.nith.aiah.25@gmail.com</a>
+    </p>
+</div>
+
+</body>
+</html>
