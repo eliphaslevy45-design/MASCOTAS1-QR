@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACCESO RESTRINGIDO · NITH-AIAH</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --red:    #e63946;
+    --gold:   #ffd60a;
+    --dark:   #050508;
+    --panel:  #0d0d14;
+    --border: #1a1a2e;
+    --text:   #c8cdd6;
+    --dim:    #555e6e;
+    --mono:   'Share Tech Mono', monospace;
+    --sans:   'Rajdhani', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(230,57,70,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(230,57,70,.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── SCANLINE OVERLAY ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,.15) 2px,
+      rgba(0,0,0,.15) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── CORNER BRACKETS ── */
+  .corner {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    z-index: 1;
+  }
+  .corner-tl { top: 20px; left: 20px; border-top: 2px solid var(--red); border-left: 2px solid var(--red); }
+  .corner-tr { top: 20px; right: 20px; border-top: 2px solid var(--red); border-right: 2px solid var(--red); }
+  .corner-bl { bottom: 20px; left: 20px; border-bottom: 2px solid var(--red); border-left: 2px solid var(--red); }
+  .corner-br { bottom: 20px; right: 20px; border-bottom: 2px solid var(--red); border-right: 2px solid var(--red); }
+
+  /* ── TOP TICKER ── */
+  .ticker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 10;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 60px;
+    animation: scroll-left 22s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .ticker-sep { color: rgba(255,255,255,.4); }
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── MAIN PANEL ── */
+  .panel {
+    position: relative;
+    z-index: 2;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    padding: 48px 40px 40px;
+    max-width: 480px;
+    width: 92%;
+    box-shadow:
+      0 0 60px rgba(230,57,70,.12),
+      0 0 120px rgba(230,57,70,.05),
+      inset 0 1px 0 rgba(255,255,255,.04);
+  }
+
+  /* ── SHIELD ICON ── */
+  .shield {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  .shield svg {
+    filter: drop-shadow(0 0 12px rgba(230,57,70,.5));
+    animation: pulse-glow 2.8s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(230,57,70,.4)); }
+    50%       { filter: drop-shadow(0 0 20px rgba(230,57,70,.8)); }
+  }
+
+  /* ── HEADINGS ── */
+  .label-access {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--red);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .title-main {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .title-sub {
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: var(--dim);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    margin-bottom: 32px;
+    opacity: .5;
+  }
+
+  /* ── IP CAPTURE BOX ── */
+  .ip-capture {
+    background: rgba(0,0,0,.6);
+    border: 1px solid rgba(230,57,70,.4);
+    border-left: 3px solid var(--red);
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ip-capture::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    animation: ip-scan 2.2s ease-in-out infinite;
+  }
+  @keyframes ip-scan {
+    0%   { top: -5%; opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { top: 105%; opacity: 0; }
+  }
+  .ip-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .ip-value {
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--red);
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-shadow: 0 0 14px rgba(230,57,70,.5);
+    animation: ip-blink 2.5s ease-in-out infinite;
+    margin-bottom: 10px;
+    word-break: break-all;
+  }
+  @keyframes ip-blink {
+    0%,100% { opacity: 1; }
+    50%      { opacity: .7; }
+  }
+  .ip-meta {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 1.5px;
+    line-height: 1.8;
+  }
+  .ip-meta span { color: #8a9ab0; }
+  .ip-alert {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: rgba(230,57,70,.12);
+    border: 1px solid rgba(230,57,70,.3);
+    font-family: var(--mono);
+    font-size: 9.5px;
+    line-height: 1.7;
+    letter-spacing: 1px;
+    color: #c0404a;
+  }
+  .ip-alert strong {
+    color: var(--red);
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .dot-blink {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse-dot 1s step-end infinite;
+  }
+
+  /* ── IP WARNING BOX ── */
+  .warning-box {
+    background: rgba(230,57,70,.08);
+    border: 1px solid rgba(230,57,70,.25);
+    border-left: 3px solid var(--red);
+    padding: 14px 16px;
+    margin-bottom: 28px;
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    color: #b04a53;
+  }
+  .warning-box strong {
+    color: var(--red);
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  /* ── INPUT AREA ── */
+  .input-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .input-wrap {
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .input-wrap::before {
+    content: '›';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--red);
+    font-size: 18px;
+    font-family: var(--mono);
+    pointer-events: none;
+  }
+  #passInput {
+    width: 100%;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    border-bottom-color: var(--dim);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 18px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    padding: 14px 14px 14px 36px;
+    outline: none;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  #passInput::placeholder {
+    letter-spacing: 4px;
+    font-size: 12px;
+    color: var(--dim);
+    opacity: .5;
+  }
+  #passInput:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 1px rgba(230,57,70,.3), 0 4px 20px rgba(230,57,70,.1);
+  }
+
+  .input-hint {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    opacity: .6;
+    margin-bottom: 24px;
+  }
+
+  /* ── BUTTON ── */
+  #btnAccess {
+    width: 100%;
+    background: var(--red);
+    border: none;
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    padding: 16px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background .25s, box-shadow .25s;
+  }
+  #btnAccess::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+    transition: left .4s;
+  }
+  #btnAccess:hover {
+    background: #c1121f;
+    box-shadow: 0 0 20px rgba(230,57,70,.4);
+  }
+  #btnAccess:hover::after { left: 100%; }
+  #btnAccess:active { transform: scale(.98); }
+
+  /* ── ERROR MESSAGE ── */
+  #errorMsg {
+    display: none;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--red);
+    text-align: center;
+    margin-top: 14px;
+    animation: blink-err .6s step-end 4;
+  }
+  @keyframes blink-err {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  /* ── FOOTER META ── */
+  .meta {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+    opacity: .5;
+  }
+  .meta-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    display: inline-block;
+    margin-right: 6px;
+    animation: pulse-dot 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: .4; transform: scale(.6); }
+  }
+
+  /* ── ACCESS GRANTED OVERLAY ── */
+  #grantedOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--dark);
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    letter-spacing: 3px;
+  }
+  #grantedOverlay.show { display: flex; }
+  .granted-text {
+    font-size: 22px;
+    color: #2ecc71;
+    animation: fadeLines .5s ease forwards;
+    text-shadow: 0 0 20px rgba(46,204,113,.5);
+  }
+  .granted-sub {
+    font-size: 11px;
+    color: var(--dim);
+    margin-top: 12px;
+    letter-spacing: 4px;
+  }
+  @keyframes fadeLines {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SHAKE ANIMATION ── */
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%     { transform: translateX(-8px); }
+    40%     { transform: translateX(8px); }
+    60%     { transform: translateX(-5px); }
+    80%     { transform: translateX(5px); }
+  }
+  .shake { animation: shake .35s ease; }
+
+  @media (max-width: 480px) {
+    .panel { padding: 36px 24px 32px; }
+    .title-main { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ticker superior -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">⚠ ACCESO RESTRINGIDO</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">NITH-AIAH GEO-QR SYSTEM</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">PROTEGIDO POR REGISTRO DE PROPIEDAD INTELECTUAL</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">UNAUTHORIZED ACCESS PROHIBITED</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">⚠ ACCESO RESTRINGIDO</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">NITH-AIAH GEO-QR SYSTEM</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">PROTEGIDO POR REGISTRO DE PROPIEDAD INTELECTUAL</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">UNAUTHORIZED ACCESS PROHIBITED</span>
+    <span class="ticker-sep">///</span>
+  </div>
+</div>
+
+<!-- Esquinas decorativas -->
+<div class="corner corner-tl"></div>
+<div class="corner corner-tr"></div>
+<div class="corner corner-bl"></div>
+<div class="corner corner-br"></div>
+
+<!-- Panel principal -->
+<div class="panel">
+
+  <!-- Icono escudo -->
+  <div class="shield">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 4L8 14V32C8 46.4 18.4 59.6 32 62C45.6 59.6 56 46.4 56 32V14L32 4Z" stroke="#e63946" stroke-width="2" fill="rgba(230,57,70,.08)"/>
+      <path d="M32 18L22 22V31C22 38.2 26.4 44.8 32 46.4C37.6 44.8 42 38.2 42 31V22L32 18Z" fill="rgba(230,57,70,.15)" stroke="#e63946" stroke-width="1.5"/>
+      <line x1="26" y1="31" x2="30" y2="35" stroke="#e63946" stroke-width="2" stroke-linecap="round"/>
+      <line x1="30" y1="35" x2="38" y2="27" stroke="#e63946" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <p class="label-access">// SISTEMA SEGURO //</p>
+  <h1 class="title-main">ACCESO RESTRINGIDO</h1>
+  <p class="title-sub">NITH-AIAH · GEO-QR PLATFORM</p>
+
+  <div class="divider"></div>
+
+  <!-- Bloque captura IP -->
+  <div class="ip-capture">
+    <div class="ip-label">⬤ DIRECCIÓN IP DETECTADA · ACCESO EN CURSO REGISTRADO</div>
+    <div class="ip-value" id="ipDisplay">Escaneando...</div>
+    <div class="ip-meta" id="ipMeta">
+      Obteniendo datos de red...
+    </div>
+    <div class="ip-alert">
+      <strong><span class="dot-blink"></span>AVISO · ESTE ACCESO HA SIDO NOTIFICADO</strong>
+      Tu dirección IP, operadora, ubicación aproximada, dispositivo y marca de tiempo han sido capturados automáticamente y enviados en tiempo real a los propietarios del sistema. Cualquier intento de copia, descarga o uso no autorizado de este archivo será reportado a las autoridades competentes al amparo de la Ley de Propiedad Intelectual.
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <strong>⛔ AVISO LEGAL · LEGAL NOTICE</strong>
+    Este archivo y su contenido están protegidos por Registro de Propiedad Intelectual. Cualquier intento de copia, descarga o reproducción no autorizada queda registrado y constituye una infracción legal perseguible.
+    <br><br>
+    <em>This file is protected by Intellectual Property Registry. Unauthorized copying or reproduction is tracked and constitutes a prosecutable legal infringement.</em>
+  </div>
+
+  <label class="input-label" for="passInput">· Introduzca la contraseña de acceso ·</label>
+  <div class="input-wrap">
+    <input
+      type="password"
+      id="passInput"
+      maxlength="20"
+      placeholder="············"
+      autocomplete="off"
+      spellcheck="false"
+      onkeydown="if(event.key==='Enter') verificar()"
+    >
+  </div>
+  <p class="input-hint">» Contraseña sensible a mayúsculas</p>
+
+  <button id="btnAccess" onclick="verificar()">VERIFICAR ACCESO</button>
+
+  <p id="errorMsg">⛔ CONTRASEÑA INCORRECTA · ACCESO DENEGADO</p>
+
+  <!-- Contador de intentos -->
+  <div style="text-align:center; margin-top:14px; font-family:var(--mono); font-size:10px; letter-spacing:2px; color:var(--dim);">
+    INTENTOS RESTANTES: <span id="intentosDisplay" style="color:#8a9ab0; font-size:13px; font-weight:bold;">3</span> / 3
+  </div>
+
+  <div class="meta">
+    <span><span class="meta-dot"></span>SISTEMA ACTIVO</span>
+    <span id="metaTime"></span>
+    <span>NITH-AIAH © 2025</span>
+  </div>
+
+</div>
+
+<!-- Overlay acceso concedido -->
+<div id="grantedOverlay">
+  <div class="granted-text">✓ ACCESO CONCEDIDO</div>
+  <div class="granted-sub">REDIRIGIENDO AL SISTEMA...</div>
+</div>
+
+<!-- Overlay bloqueado -->
+<div id="blockedOverlay" style="
+  display:none; position:fixed; inset:0; background:#000;
+  z-index:200; flex-direction:column; align-items:center; justify-content:center;
+  font-family:var(--mono); letter-spacing:3px; text-align:center; padding:30px;
+">
+  <div style="font-size:60px; margin-bottom:20px; animation:pulse-glow 1s ease-in-out infinite;">⛔</div>
+  <div style="font-size:20px; color:#e63946; letter-spacing:4px; margin-bottom:10px; text-shadow:0 0 20px rgba(230,57,70,.6);">
+    ACCESO BLOQUEADO
+  </div>
+  <div style="font-size:11px; color:#555e6e; letter-spacing:3px; margin-bottom:30px;">
+    MÁXIMO DE INTENTOS ALCANZADO
+  </div>
+  <div style="
+    border:1px solid rgba(230,57,70,.3); background:rgba(230,57,70,.08);
+    padding:20px 28px; max-width:400px; font-size:10px; line-height:1.9;
+    color:#b04a53; letter-spacing:1px; margin-bottom:30px;
+  ">
+    <strong style="color:#e63946; display:block; font-size:11px; letter-spacing:2px; margin-bottom:8px;">
+      INFORME DE INTRUSIÓN ENVIADO
+    </strong>
+    Tu dirección IP, operadora, ubicación y datos del dispositivo han sido enviados a los propietarios del sistema y quedan registrados en nuestros servidores de seguridad. Este incidente puede ser objeto de denuncia al amparo de la Ley de Propiedad Intelectual y la Ley de Ciberseguridad.
+  </div>
+  <div style="font-size:13px; color:#555e6e; letter-spacing:2px;">
+    SERÁS REDIRIGIDO EN <span id="blockCount" style="color:#e63946; font-size:20px;">5</span> SEGUNDOS
+  </div>
+</div>
+
+<script>
+  // ── Reloj en footer ──
+  function tick() {
+    const d = new Date();
+    const h = String(d.getHours()).padStart(2,'0');
+    const m = String(d.getMinutes()).padStart(2,'0');
+    const s = String(d.getSeconds()).padStart(2,'0');
+    const el = document.getElementById('metaTime');
+    if (el) el.textContent = h + ':' + m + ':' + s;
+  }
+  setInterval(tick, 1000);
+  tick();
+
+  // ── Config propietario (mismo script que zeus.html) ──
+  const GATE_CONFIG = {
+    email:           'eliphaslevy45@gmail.com',
+    googleScriptURL: 'https://script.google.com/macros/s/AKfycbytri58J1VNh3eoUVkRx2BBXNKAAPmUEmWOh2Q2JAUqKZHozaoul4zc_asWBt3gEC8J/exec'
+  };
+
+  // ── Obtener IP y notificar al propietario ──
+  let ipCapturada = '---';
+  (function capturarIP() {
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString('es-ES', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    const hora  = ahora.toLocaleTimeString('es-ES', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    const dispositivo = navigator.userAgent;
+
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(geo => {
+        ipCapturada = geo.ip || 'no disponible';
+
+        // Mostrar IP en pantalla
+        document.getElementById('ipDisplay').textContent = ipCapturada;
+        document.getElementById('ipMeta').innerHTML =
+          `<span>PAÍS:</span> ${geo.country_name || '—'} &nbsp;|&nbsp; ` +
+          `<span>CIUDAD:</span> ${geo.city || '—'} &nbsp;|&nbsp; ` +
+          `<span>REGIÓN:</span> ${geo.region || '—'}<br>` +
+          `<span>OPERADORA:</span> ${geo.org || '—'}<br>` +
+          `<span>HORA CAPTURA:</span> ${fecha} · ${hora}`;
+
+        // Notificar al propietario silenciosamente
+        const params = new URLSearchParams({
+          nombre:      '⛔ ACCESO A PANTALLA RESTRINGIDA (index.html)',
+          email:       GATE_CONFIG.email,
+          fecha:       fecha,
+          hora:        hora,
+          ip:          ipCapturada,
+          ciudad:      geo.city         || 'desconocida',
+          region:      geo.region       || '',
+          pais:        geo.country_name || '',
+          operadora:   geo.org          || '',
+          dispositivo: dispositivo
+        });
+        fetch(GATE_CONFIG.googleScriptURL + '?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
+      })
+      .catch(() => {
+        // Sin acceso a ipapi: mostrar aviso y notificar igualmente
+        document.getElementById('ipDisplay').textContent = 'IP capturada';
+        document.getElementById('ipMeta').textContent = 'Datos de red registrados por el sistema.';
+        const ahora2 = new Date();
+        const params = new URLSearchParams({
+          nombre:      '⛔ ACCESO A PANTALLA RESTRINGIDA (index.html) — sin IP',
+          email:       GATE_CONFIG.email,
+          fecha:       ahora2.toLocaleDateString('es-ES'),
+          hora:        ahora2.toLocaleTimeString('es-ES'),
+          ip:          'no disponible',
+          ciudad:      '',
+          region:      '',
+          pais:        '',
+          operadora:   '',
+          dispositivo: navigator.userAgent
+        });
+        fetch(GATE_CONFIG.googleScriptURL + '?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
+      });
+  })();
+
+  // ── Si ya autenticó en esta sesión, pasar directo ──
+  if (sessionStorage.getItem('nia_access') === 'granted') {
+    window.location.replace('zeus.html');
+  }
+
+  // ── Control de intentos ──
+  let intentosRestantes = 3;
+
+  function actualizarContador() {
+    const el = document.getElementById('intentosDisplay');
+    if (!el) return;
+    el.textContent = intentosRestantes;
+    if (intentosRestantes === 1) el.style.color = 'var(--red)';
+    else if (intentosRestantes === 2) el.style.color = '#e08c00';
+  }
+  actualizarContador();
+
+  function bloquearYExpulsar() {
+    // Deshabilitar input y botón
+    document.getElementById('passInput').disabled = true;
+    document.getElementById('btnAccess').disabled = true;
+    document.getElementById('btnAccess').style.opacity = '0.4';
+
+    // Mostrar overlay de bloqueo
+    const overlay = document.getElementById('blockedOverlay');
+    overlay.style.display = 'flex';
+
+    // Cuenta atrás de 5 segundos y redirige a google.com
+    let cuenta = 5;
+    const countEl = document.getElementById('blockCount');
+    countEl.textContent = cuenta;
+    const timer = setInterval(() => {
+      cuenta--;
+      countEl.textContent = cuenta;
+      if (cuenta <= 0) {
+        clearInterval(timer);
+        window.location.replace('https://www.google.com');
+      }
+    }, 1000);
+  }
+
+  // ── Verificación ──
+  function verificar() {
+    if (intentosRestantes <= 0) return;
+
+    const val = document.getElementById('passInput').value;
+    const errEl = document.getElementById('errorMsg');
+
+    if (val === 'CLAUDE') {
+      sessionStorage.setItem('nia_access', 'granted');
+      const overlay = document.getElementById('grantedOverlay');
+      overlay.classList.add('show');
+      setTimeout(() => {
+        window.location.replace('zeus.html');
+      }, 1400);
+    } else {
+      intentosRestantes--;
+      actualizarContador();
+
+      const inp = document.getElementById('passInput');
+      inp.classList.remove('shake');
+      void inp.offsetWidth;
+      inp.classList.add('shake');
+      inp.value = '';
+
+      if (intentosRestantes <= 0) {
+        // Último intento fallado → bloquear
+        errEl.style.display = 'block';
+        errEl.textContent = '⛔ ACCESO BLOQUEADO · EXPULSANDO DEL SISTEMA...';
+        setTimeout(() => bloquearYExpulsar(), 800);
+      } else {
+        errEl.style.display = 'block';
+        errEl.textContent = `⛔ CONTRASEÑA INCORRECTA · ${intentosRestantes} INTENTO${intentosRestantes > 1 ? 'S' : ''} RESTANTE${intentosRestantes > 1 ? 'S' : ''}`;
+        setTimeout(() => { errEl.style.display = 'none'; }, 3000);
+      }
+    }
+  }
+</script>
+</body>
+</html>
