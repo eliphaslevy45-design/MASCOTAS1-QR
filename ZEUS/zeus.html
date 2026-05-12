@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>NITH-AIAH · Zeus</title>
+<meta property="og:title" content="🐾 Mascota encontrada - Ayuda inmediata">
+<meta property="og:description" content="Has escaneado el código de Zeus. Por favor, contacta con su familia.">
+<meta property="og:image" content="img/zeus.webp">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f5ede8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cormorant+Garamond:wght@600;700&family=Great+Vibes&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream:       #f5ede8;
+  --cream-mid:   #eeddd5;
+  --cream-dark:  #e5cfc6;
+  --white:       #ffffff;
+  --red:         #8B1A2C;
+  --red-soft:    #c0394f;
+  --red-light:   #fbeaec;
+  --green:       #1a7a4a;
+  --green-light: #e8f5ee;
+  --blue-light:  #e8f0fe;
+  --purple-light:#f3e8ff;
+  --dark:        #1e110c;
+  --text:        #3d2b1f;
+  --text-mid:    #6b5147;
+  --text-light:  #9e8880;
+  --border:      rgba(0,0,0,0.07);
+  --shadow-xs:   0 1px 4px rgba(0,0,0,0.06);
+  --shadow-sm:   0 2px 10px rgba(0,0,0,0.08);
+  --shadow-md:   0 6px 20px rgba(0,0,0,0.11);
+  --r:           14px;
+  --font:        'Nunito', sans-serif;
+  --script:      'Great Vibes', cursive;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { -webkit-overflow-scrolling:touch; overflow-y:auto; }
+
+body {
+  font-family: var(--font);
+  background: var(--cream);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════════
+   EMERGENCY BANNER
+══════════════════════════════════════ */
+.emergency-banner {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg, #b00020, #e0193a, #b00020);
+  background-size: 200% 100%;
+  animation: bannerPulse 3s ease-in-out infinite;
+  color: #ffe566;
+  text-align: center;
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  box-shadow: 0 3px 14px rgba(176,0,32,.45);
+  overflow: hidden;
+}
+.emergency-banner::after {
+  content: '';
+  position: absolute;
+  top:0; left:-60%;
+  width:40%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  animation: shine 3s infinite;
+}
+.e-icon { display:inline-block; animation:shake .75s ease-in-out infinite; }
+@keyframes bannerPulse {
+  0%,100% { background-position:0% 0%; }
+  50%      { background-position:100% 0%; }
+}
+@keyframes shine { 0%{left:-60%} 100%{left:140%} }
+@keyframes shake {
+  0%,100%{transform:rotate(0deg)} 25%{transform:rotate(-10deg)} 75%{transform:rotate(10deg)}
+}
+
+/* ══════════════════════════════════════
+   HEADER
+══════════════════════════════════════ */
+.header {
+  background: var(--white);
+  text-align: center;
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid var(--cream-mid);
+  position: relative;
+}
+.logo-wrap { display:flex; justify-content:center; align-items:center; gap:0; flex-direction:column; margin-bottom:4px; }
+.logo-img  { max-width:150px; height:auto; display:block; margin:0 auto; }
+.geo-brand {
+  font-family: var(--script);
+  font-size: 30px;
+  color: #3a4d7a;
+  line-height: 1;
+  margin-top: -4px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+/* Language selector */
+.lang-wrap { display:flex; justify-content:center; margin-bottom:14px; }
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(139,26,44,.07);
+  border: 1.5px solid rgba(139,26,44,.18);
+  border-radius: 25px;
+  padding: 6px 14px;
+  cursor: pointer;
+  color: var(--red);
+  font-weight: 800;
+  font-size: 12px;
+  font-family: var(--font);
+  letter-spacing: .5px;
+  transition: background .2s;
+}
+.lang-btn:hover { background: rgba(139,26,44,.13); }
+.lang-arrow { font-size:9px; opacity:.6; transition:transform .3s; }
+.lang-open .lang-arrow { transform:rotate(180deg); }
+.lang-menu {
+  display:none;
+  position:absolute;
+  top:calc(100% + 6px);
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--white);
+  border-radius:12px;
+  box-shadow:var(--shadow-md);
+  overflow:hidden;
+  z-index:9999;
+  min-width:155px;
+  border:1px solid var(--border);
+}
+.lang-dropdown.lang-open .lang-menu { display:block; }
+.lang-opt {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 16px;
+  cursor:pointer; font-size:14px;
+  font-family:var(--font); color:var(--text);
+  transition:background .15s; white-space:nowrap;
+}
+.lang-opt:hover { background:#fdf0f2; }
+.lang-opt.active { background:#fce8eb; font-weight:800; color:var(--red); }
+.fi { border-radius:3px; }
+
+.pet-name {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--dark);
+  margin-top: 2px;
+  letter-spacing: -.3px;
+}
+.pet-sub {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-top: 5px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════
+   CAROUSEL — CUADRADO
+══════════════════════════════════════ */
+.carousel-section {
+  background: var(--white);
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--cream-mid);
+}
+.carousel-frame {
+  position: relative;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.carousel-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 3px solid var(--cream-mid);
+  background: var(--cream);
+}
+.c-slide { display:none; width:100%; height:100%; animation:fadeSlide .45s ease; }
+.c-slide.active { display:block; }
+.c-slide img { width:100%; height:100%; object-fit:contain; display:block; background:var(--cream); }
+@keyframes fadeSlide { from{opacity:0;transform:scale(1.03)} to{opacity:1;transform:scale(1)} }
+
+.carousel-dots { display:flex; justify-content:center; gap:7px; margin-top:12px; }
+.c-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--cream-dark); cursor:pointer;
+  transition:all .3s; border:none;
+}
+.c-dot.active { background:var(--red); width:22px; border-radius:4px; }
+
+.pet-caption {
+  text-align:center; margin-top:10px;
+  font-size:13px; font-style:italic;
+  color:var(--text-light); font-weight:600;
+}
+
+/* ══════════════════════════════════════
+   MAIN CONTENT WRAPPER
+══════════════════════════════════════ */
+.content {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 16px 10px;
+}
+
+/* ══════════════════════════════════════
+   ACTION BUTTONS
+══════════════════════════════════════ */
+.actions { display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 15px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font);
+  box-shadow: var(--shadow-xs);
+  transition: transform .15s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.action-btn:active { transform:scale(.985); box-shadow:none; }
+
+.btn-text { font-size:15px; font-weight:800; color:var(--dark); text-align:left; line-height:1.2; }
+.btn-sub  { font-size:11px; font-weight:600; color:var(--text-light); margin-top:2px; }
+
+.btn-icon {
+  width:42px; height:42px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; flex-shrink:0; margin-left:14px;
+  overflow:hidden;
+}
+.btn-call     .btn-icon { background:var(--blue-light); }
+.btn-wa       .btn-icon { background: transparent; }
+.btn-location .btn-icon { background: transparent; }
+.btn-video    .btn-icon { background:var(--purple-light); }
+
+/* ══════════════════════════════════════
+   INFO CARDS
+══════════════════════════════════════ */
+.info-card {
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  background: linear-gradient(135deg, var(--red-light) 0%, var(--white) 100%);
+  border-bottom: 1px solid var(--cream-mid);
+}
+.card-icon { font-size:20px; line-height:1; }
+.card-title {
+  font-size:11.5px; font-weight:900;
+  color:var(--red); text-transform:uppercase; letter-spacing:1.5px;
+}
+/* card-body padding managed by accordion */
+
+.info-row {
+  display:flex; flex-direction:column; gap:3px;
+  padding:11px 16px;
+  border-bottom:1px solid var(--cream);
+}
+.info-row:last-child { border-bottom:none; }
+.info-label {
+  font-size:10.5px; font-weight:800;
+  color:var(--text-light); text-transform:uppercase; letter-spacing:1px;
+}
+.info-val {
+  font-size:15px; font-weight:700; color:var(--dark); line-height:1.3;
+}
+.badge {
+  display:inline-block;
+  background:linear-gradient(135deg,#ffd89b,#ffb347);
+  color:#6b3800; padding:2px 9px;
+  border-radius:20px; font-size:11px; font-weight:800;
+  margin-left:6px; vertical-align:middle;
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer {
+  text-align:center;
+  padding:26px 20px 38px;
+  border-top:1px solid var(--cream-mid);
+  background:var(--white);
+  margin-top:6px;
+}
+.footer-logo { font-family:var(--script); font-size:26px; color:var(--red); display:block; margin-bottom:4px; }
+.footer-tagline { font-size:13px; color:var(--text-light); font-weight:600; margin:4px 0 14px; }
+.footer-link {
+  display:inline-block;
+  color:var(--red); text-decoration:none;
+  font-size:12px; font-weight:800;
+  border:1.5px solid rgba(139,26,44,.2);
+  padding:7px 18px; border-radius:25px;
+  transition:background .2s;
+}
+.footer-link:hover { background:var(--red-light); }
+
+/* ══════════════════════════════════════
+   GDPR MODAL
+══════════════════════════════════════ */
+.overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,.55); z-index:99999;
+  justify-content:center; align-items:center; padding:20px;
+}
+.overlay.show { display:flex; }
+
+.modal {
+  background:var(--white); border-radius:20px;
+  padding:26px 24px; max-width:440px; width:100%;
+  box-shadow:0 10px 40px rgba(0,0,0,.25);
+  animation:modalIn .3s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+.modal h3 {
+  font-size:17px; color:var(--red); font-weight:900;
+  text-align:center; margin-bottom:16px;
+  font-family:var(--font);
+}
+.gdpr-row {
+  display:flex; gap:10px; margin-bottom:9px;
+  font-size:13.5px; color:var(--text); align-items:flex-start;
+  font-family:var(--font); line-height:1.5;
+}
+.gdpr-ico { font-size:17px; flex-shrink:0; margin-top:1px; }
+
+.modal-btns {
+  display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:20px;
+}
+.btn-accept {
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:white; padding:13px; border-radius:40px;
+  font-size:14px; font-weight:800; border:none;
+  cursor:pointer; font-family:var(--font);
+  box-shadow:0 4px 14px rgba(37,211,102,.3);
+  transition:transform .2s;
+}
+.btn-accept:hover { transform:translateY(-1px); }
+.btn-cancel {
+  background:var(--white); color:#999; padding:13px;
+  border-radius:40px; font-size:13px; font-weight:700;
+  border:2px solid #e0e0e0; cursor:pointer;
+  font-family:var(--font); transition:background .2s;
+}
+.btn-cancel:hover { background:#f5f5f5; }
+@media(max-width:400px){ .modal-btns{grid-template-columns:1fr;} }
+
+/* ══════════════════════════════════════
+   VIDEO MODAL
+══════════════════════════════════════ */
+.video-modal {
+  background:var(--white); border-radius:20px;
+  max-width:460px; width:90%; padding:28px 24px;
+  box-shadow:0 10px 50px rgba(0,0,0,.3);
+  text-align:center; animation:modalIn .3s ease;
+  font-family:var(--font);
+}
+.video-modal h3 {
+  font-size:18px; color:var(--dark); font-weight:900;
+  margin-bottom:18px;
+}
+.video-steps {
+  text-align:left; background:#f8f9fa;
+  padding:16px; border-radius:10px; margin:14px 0;
+}
+.video-steps p {
+  margin:8px 0; font-size:14px; color:var(--text); line-height:1.5;
+}
+.video-info {
+  background:var(--green-light); padding:12px;
+  border-radius:10px; margin:14px 0;
+  font-size:13px; color:var(--green); font-weight:700;
+}
+.btn-video-go {
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:white; padding:14px 36px;
+  border:none; border-radius:40px;
+  font-weight:800; font-size:15px;
+  cursor:pointer; font-family:var(--font);
+  box-shadow:0 4px 15px rgba(37,211,102,.35);
+  transition:transform .2s;
+}
+.btn-video-go:hover { transform:translateY(-1px); }
+
+/* ══════════════════════════════════════
+   LOADING SPINNER
+══════════════════════════════════════ */
+#loading {
+  display:none; position:fixed;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  background:rgba(255,255,255,.96); padding:22px 28px;
+  border-radius:14px; box-shadow:var(--shadow-md);
+  z-index:9999; text-align:center; font-family:var(--font);
+}
+.spinner {
+  width:36px; height:36px; border-radius:50%;
+  border:4px solid var(--cream-mid);
+  border-top-color:var(--red);
+  animation:spin 1s linear infinite; margin:0 auto;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+#loading p { margin-top:10px; font-size:14px; color:var(--text-mid); font-weight:700; }
+
+/* ══════════════════════════════════════
+   BRAND TITLE (encima del selector)
+══════════════════════════════════════ */
+.brand-title {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+  display: block;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════
+   ACORDEÓN — INFO CARDS (mismo estilo action-btn)
+══════════════════════════════════════ */
+.info-card {
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+/* El card-head hereda action-btn; solo añadimos cursor y ajuste */
+.info-card .card-head {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: var(--r) !important;
+  transition: transform .15s, box-shadow .15s;
+}
+.info-card.open .card-head {
+  border-radius: var(--r) var(--r) 0 0 !important;
+}
+.info-card .card-head:active { transform: scale(.985); box-shadow: none; }
+
+/* Wrapper del icono + chevron */
+.acc-icon-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  margin-left: 14px;
+}
+.card-chevron {
+  font-size: 10px;
+  color: var(--red);
+  opacity: .6;
+  transition: transform .3s ease;
+  line-height: 1;
+}
+.info-card.open .card-chevron { transform: rotate(180deg); }
+
+/* Colores de fondo del icono para los tres acordeones */
+.btn-med  .btn-icon { background: #fde8ea; display:flex; align-items:center; justify-content:center; }
+.btn-cont .btn-icon { background: #e8f5ee; }
+.btn-add  .btn-icon { background: #fff3e0; }
+
+/* Cuerpo desplegable */
+.card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--r) var(--r);
+}
+.info-card.open .card-body { max-height: 600px; }
+
+/* Filas dentro del cuerpo */
+.card-body .info-row:first-child { padding-top: 14px; }
+.card-body .info-row:last-child  { padding-bottom: 14px; border-bottom: none; }
+
+/* ══════════════════════════════════════
+   FOOTER LOGO — fuente más gruesa
+══════════════════════════════════════ */
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  letter-spacing: 3px !important;
+  color: var(--red);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE TWEAKS
+══════════════════════════════════════ */
+@media(min-width:420px){
+  .carousel-box { max-height:340px; }
+  .content { padding:24px 20px 12px; }
+  .btn-text { font-size:16px; }
+}
+@media(min-width:600px){
+  .carousel-frame { max-width:360px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── GDPR MODAL ── -->
+<div class="overlay" id="gdprOverlay">
+  <div class="modal">
+    <h3 data-i18n="gdprTitle">📍 Antes de continuar</h3>
+    <div class="gdpr-row"><span class="gdpr-ico">📌</span><span data-i18n="gdprWhat">Se va a recoger tu ubicación GPS aproximada.</span></div>
+    <div class="gdpr-row"><span class="gdpr-ico">🎯</span><span data-i18n="gdprPurpose">Su único uso es ayudar al dueño a localizar a su mascota.</span></div>
+    <div class="gdpr-row"><span class="gdpr-ico">📱</span><span data-i18n="gdprReceiver">Se enviará al dueño por WhatsApp, únicamente a él.</span></div>
+    <div class="gdpr-row"><span class="gdpr-ico">🔒</span><span data-i18n="gdprNoStore">No se almacena en ningún servidor ni se usa para otro fin.</span></div>
+    <div class="modal-btns">
+      <button class="btn-accept" onclick="gdprAceptado()" data-i18n="gdprAccept">✅ Acepto</button>
+      <button class="btn-cancel" onclick="gdprCancelado()" data-i18n="gdprCancel">📵 Sin ubicación</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIDEO MODAL ── -->
+<div class="overlay" id="videoOverlay">
+  <div class="video-modal">
+    <h3 data-i18n="videoTitle">VIDEOLLAMADA CON EL DUEÑO</h3>
+    <div class="video-steps">
+      <p data-i18n="videoStep1">1. En un momento se abrirá WhatsApp</p>
+      <p data-i18n="videoStep2">2. Envía el mensaje al dueño</p>
+      <p data-i18n="videoStep3">3. DESPUÉS de enviar, pulsa el icono de videollamada en WhatsApp</p>
+    </div>
+    <div class="video-info" data-i18n="videoInfo">Así el dueño podrá ver que su mascota está bien</div>
+    <button class="btn-video-go" onclick="iniciarVideollamada()" data-i18n="videoBtn">Abrir WhatsApp</button>
+  </div>
+</div>
+
+<!-- ── LOADING ── -->
+<div id="loading">
+  <div class="spinner"></div>
+  <p data-i18n="loadingText">Obteniendo ubicación...</p>
+</div>
+
+<!-- ══════════════════════════════════════
+     EMERGENCY BANNER
+══════════════════════════════════════ -->
+<div class="emergency-banner">
+  <span class="e-icon">🚨</span>
+  &nbsp;<span data-i18n="emergency">URGENTE — ESTOY PERDIDO</span>&nbsp;
+  <span class="e-icon">🚨</span>
+</div>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<div class="header">
+  <div class="logo-wrap">
+    <img src="img/logo.webp" class="logo-img" alt="NITH-AIAH" onerror="this.style.display='none'">
+    <span class="geo-brand">geo·qr</span>
+  </div>
+
+  <!-- Título de marca sobre el selector -->
+  <span class="brand-title">NITH · AIAH</span>
+
+  <!-- Selector de idioma -->
+  <div class="lang-wrap">
+    <div class="lang-dropdown" id="langDropdown">
+      <button class="lang-btn" onclick="toggleLang()">
+        <span id="activeLangFlag" class="fi fi-es"></span>
+        <span class="lang-arrow" id="langArrow">▼</span>
+      </button>
+      <div class="lang-menu" id="langMenu">
+        <div class="lang-opt active" id="lang-es" onclick="setLang('es')"><span class="fi fi-es"></span>Español</div>
+        <div class="lang-opt" id="lang-en" onclick="setLang('en')"><span class="fi fi-gb"></span>English</div>
+        <div class="lang-opt" id="lang-fr" onclick="setLang('fr')"><span class="fi fi-fr"></span>Français</div>
+        <div class="lang-opt" id="lang-it" onclick="setLang('it')"><span class="fi fi-it"></span>Italiano</div>
+        <div class="lang-opt" id="lang-de" onclick="setLang('de')"><span class="fi fi-de"></span>Deutsch</div>
+        <div class="lang-opt" id="lang-pt" onclick="setLang('pt')"><span class="fi fi-pt"></span>Português</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pet-name" data-i18n="petName">Hola, me llamo Zeus 🐾</div>
+  <div class="pet-sub"  data-i18n="petSub">Ayúdame a volver a casa, mi familia me espera</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CAROUSEL CUADRADO
+══════════════════════════════════════ -->
+<div class="carousel-section">
+  <div class="carousel-frame">
+    <div class="carousel-box">
+      <div class="c-slide active"><img src="img/zeus.webp"   alt="Zeus"></div>
+      <div class="c-slide">       <img src="img/zeus-2.webp" alt="Zeus"></div>
+      <div class="c-slide">       <img src="img/zeus-3.webp" alt="Zeus"></div>
+    </div>
+    <div class="carousel-dots">
+      <button class="c-dot active" data-slide="0"></button>
+      <button class="c-dot"        data-slide="1"></button>
+      <button class="c-dot"        data-slide="2"></button>
+    </div>
+  </div>
+  <div class="pet-caption" data-i18n="petCaption">Zeus te está esperando 🐾</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CONTENIDO PRINCIPAL
+══════════════════════════════════════ -->
+<div class="content">
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="actions">
+
+    <a href="tel:+34610768377" class="action-btn btn-call">
+      <div>
+        <div class="btn-text" data-i18n="callLabel">LLAMAR AHORA</div>
+        <div class="btn-sub"  data-i18n="callSub">Contacto directo con el dueño</div>
+      </div>
+      <div class="btn-icon">📞</div>
+    </a>
+
+    <button class="action-btn btn-wa" onclick="enviarWhatsApp()">
+      <div>
+        <div class="btn-text" data-i18n="waLabel">Contactar por WhatsApp</div>
+        <div class="btn-sub"  data-i18n="waSub">Enviar mensaje al dueño</div>
+      </div>
+      <div class="btn-icon"><svg viewBox="0 0 32 32" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.5 20.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.2-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.1-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.8-.7 2-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.3z" fill="white"/></svg></div>
+    </button>
+
+    <button class="action-btn btn-location" onclick="enviarWhatsApp()">
+      <div>
+        <div class="btn-text" data-i18n="locLabel">Enviar mi ubicación</div>
+        <div class="btn-sub"  data-i18n="locSub">Compartir dónde está la mascota</div>
+      </div>
+      <div class="btn-icon"><svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/><circle cx="12" cy="9" r="2.5" fill="white"/></svg></div>
+    </button>
+
+    <button class="action-btn btn-video" onclick="mostrarModalVideo()">
+      <div>
+        <div class="btn-text" data-i18n="videoLabel">Hacer Videollamada</div>
+        <div class="btn-sub"  data-i18n="videoSub">Ver al dueño en directo</div>
+      </div>
+      <div class="btn-icon">📹</div>
+    </button>
+
+  </div>
+
+  <!-- ACORDEÓN: INFORMACIÓN MÉDICA -->
+  <div class="info-card">
+    <div class="card-head action-btn btn-med">
+      <div>
+        <div class="btn-text" data-i18n="medTitle">Información Médica</div>
+        <div class="btn-sub" data-i18n="medSub">Microchip · salud · carácter</div>
+      </div>
+      <div class="acc-icon-wrap">
+        <div class="btn-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="#c0394f" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        <span class="card-chevron">▼</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="info-label" data-i18n="lMicrochip">Microchip</span>
+        <span class="info-val">Sí, estoy identificado.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label" data-i18n="lHealth">Salud</span>
+        <span class="info-val">"No tengo alergias" / "Necesito medicación"</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label" data-i18n="lCharacter">Carácter</span>
+        <span class="info-val">Soy muy miedoso, pero soy muy sociable</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACORDEÓN: CONTACTOS DE EMERGENCIA -->
+  <div class="info-card">
+    <div class="card-head action-btn btn-cont">
+      <div>
+        <div class="btn-text" data-i18n="contTitle">Contactos de Emergencia</div>
+        <div class="btn-sub" data-i18n="contSub">Dueño · teléfonos de contacto</div>
+      </div>
+      <div class="acc-icon-wrap">
+        <div class="btn-icon">👥</div>
+        <span class="card-chevron">▼</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="info-label" data-i18n="lOwner">Dueño/a</span>
+        <span class="info-val">Enrique Romero Morales</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label" data-i18n="lPhone1">Teléfono principal</span>
+        <span class="info-val">+34 610 76 83 77 <span class="badge">⚡ Prioridad</span></span>
+      </div>
+      <div class="info-row">
+        <span class="info-label" data-i18n="lPhone2">Teléfono familiar</span>
+        <span class="info-val">+34 --- -- -- --</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACORDEÓN: INFORMACIÓN ADICIONAL -->
+  <div class="info-card">
+    <div class="card-head action-btn btn-add">
+      <div>
+        <div class="btn-text" data-i18n="addTitle">Información Adicional</div>
+        <div class="btn-sub" data-i18n="addSub">Zona · barrio · datos extra</div>
+      </div>
+      <div class="acc-icon-wrap">
+        <div class="btn-icon">ℹ️</div>
+        <span class="card-chevron">▼</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="info-label" data-i18n="lZone">Zona / Barrio</span>
+        <span class="info-val">Las Torres · Las Palmas de Gran Canaria · C.P. 35011</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label" data-i18n="lOther">Otros datos</span>
+        <span class="info-val">S/N.</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<div class="footer">
+  <span class="footer-logo">NITH-AIAH</span>
+  <p style="font-size:14px;color:var(--red);font-weight:800;margin-bottom:2px;">🦋 Rescate y Protección de Mascotas 🦋</p>
+  <p class="footer-tagline" data-i18n="footerTag">Ayudando a reunir familias con sus compañeros peludos</p>
+  <a href="../privacidad.html" class="footer-link" target="_blank" data-i18n="privacy">🔒 Política de Privacidad</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+/* ── TRADUCCIONES ── */
+const T = {
+  es:{
+    emergency:"URGENTE — ESTOY PERDIDO",
+    petName:"Hola, me llamo Zeus 🐾",
+    petSub:"Ayúdame a volver a casa, mi familia me espera",
+    petCaption:"Zeus te está esperando 🐾",
+    callLabel:"LLAMAR AHORA",    callSub:"Contacto directo con el dueño",
+    waLabel:"Contactar por WhatsApp", waSub:"Enviar mensaje al dueño",
+    locLabel:"Enviar mi ubicación",   locSub:"Compartir dónde está la mascota",
+    videoLabel:"Hacer Videollamada",  videoSub:"Ver al dueño en directo",
+    medTitle:"Información Médica", contTitle:"Contactos de Emergencia", addTitle:"Información Adicional",
+    lMicrochip:"Microchip", lHealth:"Salud", lCharacter:"Carácter",
+    lOwner:"Dueño/a", lPhone1:"Teléfono principal", lPhone2:"Teléfono familiar",
+    lZone:"Zona / Barrio", lOther:"Otros datos",
+    medSub:"Microchip · salud · carácter",
+    contSub:"Dueño · teléfonos de contacto",
+    addSub:"Zona · barrio · datos extra",
+    footerTag:"Ayudando a reunir familias con sus compañeros peludos",
+    privacy:"🔒 Política de Privacidad",
+    loadingText:"Obteniendo ubicación...",
+    gdprTitle:"📍 Antes de continuar",
+    gdprWhat:"Se va a recoger tu ubicación GPS aproximada.",
+    gdprPurpose:"Su único uso es ayudar al dueño a localizar a su mascota.",
+    gdprReceiver:"Se enviará al dueño por WhatsApp, únicamente a él.",
+    gdprNoStore:"No se almacena en ningún servidor ni se usa para otro fin.",
+    gdprAccept:"✅ Acepto", gdprCancel:"📵 Sin ubicación",
+    videoTitle:"VIDEOLLAMADA CON EL DUEÑO",
+    videoStep1:"1. En un momento se abrirá WhatsApp",
+    videoStep2:"2. Envía el mensaje al dueño",
+    videoStep3:"3. DESPUÉS de enviar, pulsa el icono de videollamada en WhatsApp",
+    videoInfo:"Así el dueño podrá ver que su mascota está bien",
+    videoBtn:"Abrir WhatsApp",
+    waMsg:"Hola 😊 Encontré a tu mascota Zeus, y quiero que sepas que está perfectamente bien. Ya está tranquilo y conmigo. Dime cómo prefieres que hagamos para devolvértelo. ¡No te preocupes, está en buenas manos!\n\n📍 Mi ubicación:\n{mapa}",
+    waMsgNoGeo:"Hola 😊 Encontré a tu mascota Zeus, y quiero que sepas que está perfectamente bien. Ya está tranquilo y conmigo. Dime cómo prefieres que hagamos para devolvértelo. ¡No te preocupes, está en buenas manos!\n\n(No pude compartir mi ubicación automáticamente, pero puedes contactarme aquí 😊)",
+    waMsgNoSupport:"Hola 😊 Encontré a tu mascota Zeus, y quiero que sepas que está perfectamente bien. Ya está tranquilo y conmigo. Dime cómo prefieres que hagamos para devolvértelo. ¡No te preocupes, está en buenas manos!",
+    waMsgVideo:"¡Hola! He encontrado a Zeus. Está conmigo y bien. ¿Quieres verlo por videollamada?\nResponde este mensaje y luego pulsa el icono de cámara en WhatsApp 📹\n\n📍 Mi ubicación: {mapa}",
+    waMsgVideoNoGeo:"¡Hola! He encontrado a Zeus. Está conmigo y bien. ¿Quieres verlo por videollamada?\nResponde este mensaje y luego pulsa el icono de cámara en WhatsApp 📹"
+  },
+  en:{
+    emergency:"URGENT — I'M LOST",
+    petName:"Hello, my name is Zeus 🐾",
+    petSub:"Help me get home, my family is waiting",
+    petCaption:"Zeus is waiting for you 🐾",
+    callLabel:"CALL NOW",          callSub:"Direct contact with the owner",
+    waLabel:"Contact via WhatsApp",waSub:"Send a message to the owner",
+    locLabel:"Send my location",   locSub:"Share where the pet is",
+    videoLabel:"Make a Video Call",videoSub:"See the owner live",
+    medTitle:"Medical Info", contTitle:"Emergency Contacts", addTitle:"Additional Info",
+    lMicrochip:"Microchip", lHealth:"Health", lCharacter:"Character",
+    lOwner:"Owner", lPhone1:"Main phone", lPhone2:"Family phone",
+    lZone:"Area / Neighbourhood", lOther:"Other data",
+    medSub:"Medical data · health · character",
+    contSub:"Owner · contact phones",
+    addSub:"Area · neighbourhood · extra data",
+    footerTag:"Helping reunite families with their furry companions",
+    privacy:"🔒 Privacy Policy",
+    loadingText:"Getting location...",
+    gdprTitle:"📍 Before continuing",
+    gdprWhat:"Your approximate GPS location will be collected.",
+    gdprPurpose:"Its only use is to help the owner locate their pet.",
+    gdprReceiver:"It will be sent to the owner via WhatsApp, only to them.",
+    gdprNoStore:"It is not stored on any server or used for any other purpose.",
+    gdprAccept:"✅ I agree", gdprCancel:"📵 Without location",
+    videoTitle:"VIDEO CALL WITH THE OWNER",
+    videoStep1:"1. WhatsApp will open shortly",
+    videoStep2:"2. Send the message to the owner",
+    videoStep3:"3. AFTER sending, tap the video call icon in WhatsApp",
+    videoInfo:"This way the owner can see their pet is safe",
+    videoBtn:"Open WhatsApp",
+    waMsg:"Hello 😊 I found your pet Zeus, and I want you to know he is perfectly fine. He is calm and with me. Let me know how you'd like to arrange returning him. Don't worry, he's in good hands!\n\n📍 My location:\n{mapa}",
+    waMsgNoGeo:"Hello 😊 I found your pet Zeus, and I want you to know he is perfectly fine. He is calm and with me. Let me know how you'd like to arrange returning him. Don't worry, he's in good hands! 😊",
+    waMsgNoSupport:"Hello 😊 I found your pet Zeus, and I want you to know he is perfectly fine. He is calm and with me. Let me know how you'd like to arrange returning him. Don't worry, he's in good hands!",
+    waMsgVideo:"Hi! I found Zeus. He's with me and doing well. Would you like to see him on a video call?\nReply to this message and tap the camera icon in WhatsApp 📹\n\n📍 My location: {mapa}",
+    waMsgVideoNoGeo:"Hi! I found Zeus. He's with me and doing well. Would you like to see him on a video call?\nReply to this message and tap the camera icon in WhatsApp 📹"
+  },
+  fr:{
+    emergency:"URGENT — JE SUIS PERDU",
+    petName:"Bonjour, je m'appelle Zeus 🐾",
+    petSub:"Aidez-moi à rentrer à la maison",
+    petCaption:"Zeus vous attend 🐾",
+    callLabel:"APPELER MAINTENANT", callSub:"Contact direct avec le propriétaire",
+    waLabel:"Contacter par WhatsApp",waSub:"Envoyer un message au propriétaire",
+    locLabel:"Envoyer ma position",  locSub:"Partager où se trouve l'animal",
+    videoLabel:"Appel Vidéo",        videoSub:"Voir le propriétaire en direct",
+    medTitle:"Info Médicale", contTitle:"Contacts d'Urgence", addTitle:"Infos Supplémentaires",
+    lMicrochip:"Micropuce", lHealth:"Santé", lCharacter:"Caractère",
+    lOwner:"Propriétaire", lPhone1:"Téléphone principal", lPhone2:"Téléphone familial",
+    lZone:"Zone / Quartier", lOther:"Autres données",
+    medSub:"Données · santé · caractère",
+    contSub:"Propriétaire · numéros",
+    addSub:"Zone · quartier · données",
+    footerTag:"Aider à réunir les familles avec leurs compagnons",
+    privacy:"🔒 Politique de Confidentialité",
+    loadingText:"Obtention de la position...",
+    gdprTitle:"📍 Avant de continuer",
+    gdprWhat:"Votre position GPS approximative va être collectée.",
+    gdprPurpose:"Son seul usage est d'aider le propriétaire à localiser son animal.",
+    gdprReceiver:"Elle sera envoyée au propriétaire via WhatsApp, uniquement à lui.",
+    gdprNoStore:"Elle n'est stockée sur aucun serveur ni utilisée à d'autres fins.",
+    gdprAccept:"✅ J'accepte", gdprCancel:"📵 Sans position",
+    videoTitle:"APPEL VIDÉO AVEC LE PROPRIÉTAIRE",
+    videoStep1:"1. WhatsApp va s'ouvrir",
+    videoStep2:"2. Envoyez le message au propriétaire",
+    videoStep3:"3. APRÈS l'envoi, appuyez sur l'icône vidéo dans WhatsApp",
+    videoInfo:"Ainsi le propriétaire pourra voir que son animal va bien",
+    videoBtn:"Ouvrir WhatsApp",
+    waMsg:"Bonjour 😊 J'ai trouvé votre animal Zeus, et je veux que vous sachiez qu'il va parfaitement bien. Il est calme et avec moi. Dites-moi comment vous préférez procéder pour vous le rendre. Ne vous inquiétez pas, il est en de bonnes mains!\n\n📍 Ma position:\n{mapa}",
+    waMsgNoGeo:"Bonjour 😊 J'ai trouvé votre animal Zeus, et je veux que vous sachiez qu'il va parfaitement bien. Il est calme et avec moi. Dites-moi comment vous préférez procéder pour vous le rendre. Ne vous inquiétez pas, il est en de bonnes mains! 😊",
+    waMsgNoSupport:"Bonjour 😊 J'ai trouvé votre animal Zeus, et je veux que vous sachiez qu'il va parfaitement bien.",
+    waMsgVideo:"Bonjour! J'ai trouvé Zeus. Il est avec moi et va bien. Voulez-vous le voir en appel vidéo?\nRépondez à ce message et appuyez sur l'icône caméra dans WhatsApp 📹\n\n📍 Ma position: {mapa}",
+    waMsgVideoNoGeo:"Bonjour! J'ai trouvé Zeus. Il est avec moi et va bien. Voulez-vous le voir en appel vidéo?\nRépondez à ce message et appuyez sur l'icône caméra dans WhatsApp 📹"
+  },
+  it:{
+    emergency:"URGENTE — SONO PERSO",
+    petName:"Ciao, mi chiamo Zeus 🐾",
+    petSub:"Aiutami a tornare a casa",
+    petCaption:"Zeus ti sta aspettando 🐾",
+    callLabel:"CHIAMA ORA",       callSub:"Contatto diretto con il proprietario",
+    waLabel:"Contatta via WhatsApp",waSub:"Invia messaggio al proprietario",
+    locLabel:"Invia la mia posizione",locSub:"Condividi dove si trova l'animale",
+    videoLabel:"Videochiamata",   videoSub:"Vedi il proprietario in diretta",
+    medTitle:"Info Mediche", contTitle:"Contatti di Emergenza", addTitle:"Info Aggiuntive",
+    lMicrochip:"Microchip", lHealth:"Salute", lCharacter:"Carattere",
+    lOwner:"Proprietario", lPhone1:"Telefono principale", lPhone2:"Telefono familiare",
+    lZone:"Zona / Quartiere", lOther:"Altri dati",
+    medSub:"Dati · salute · carattere",
+    contSub:"Proprietario · telefoni",
+    addSub:"Zona · quartiere · dati",
+    footerTag:"Aiutando le famiglie a ritrovare i loro amici pelosi",
+    privacy:"🔒 Informativa sulla Privacy",
+    loadingText:"Acquisizione posizione...",
+    gdprTitle:"📍 Prima di continuare",
+    gdprWhat:"Verrà raccolta la tua posizione GPS approssimativa.",
+    gdprPurpose:"Il suo unico scopo è aiutare il proprietario a ritrovare l'animale.",
+    gdprReceiver:"Verrà inviata al proprietario tramite WhatsApp, solo a lui.",
+    gdprNoStore:"Non viene salvata su nessun server né usata per altri scopi.",
+    gdprAccept:"✅ Accetto", gdprCancel:"📵 Senza posizione",
+    videoTitle:"VIDEOCHIAMATA CON IL PROPRIETARIO",
+    videoStep1:"1. WhatsApp si aprirà a breve",
+    videoStep2:"2. Invia il messaggio al proprietario",
+    videoStep3:"3. DOPO l'invio, premi l'icona della videochiamata in WhatsApp",
+    videoInfo:"Così il proprietario potrà vedere che il suo animale sta bene",
+    videoBtn:"Apri WhatsApp",
+    waMsg:"Ciao 😊 Ho trovato il tuo animale Zeus, e voglio farti sapere che sta benissimo. È tranquillo e con me. Dimmi come preferisci che facciamo per restituirtelo. Non preoccuparti, è in buone mani!\n\n📍 La mia posizione:\n{mapa}",
+    waMsgNoGeo:"Ciao 😊 Ho trovato il tuo animale Zeus, e voglio farti sapere che sta benissimo. È tranquillo e con me. Dimmi come preferisci che facciamo per restituirtelo. Non preoccuparti, è in buone mani! 😊",
+    waMsgNoSupport:"Ciao 😊 Ho trovato il tuo animale Zeus, e voglio farti sapere che sta benissimo.",
+    waMsgVideo:"Ciao! Ho trovato Zeus. È con me e sta bene. Vuoi vederlo in videochiamata?\nRispondi a questo messaggio e premi l'icona della videocamera in WhatsApp 📹\n\n📍 La mia posizione: {mapa}",
+    waMsgVideoNoGeo:"Ciao! Ho trovato Zeus. È con me e sta bene. Vuoi vederlo in videochiamata?\nRispondi a questo messaggio e premi l'icona della videocamera in WhatsApp 📹"
+  },
+  de:{
+    emergency:"DRINGEND — ICH BIN VERLOREN",
+    petName:"Hallo, ich heiße Zeus 🐾",
+    petSub:"Hilf mir nach Hause zu kommen",
+    petCaption:"Zeus wartet auf dich 🐾",
+    callLabel:"JETZT ANRUFEN",    callSub:"Direktkontakt mit dem Besitzer",
+    waLabel:"Über WhatsApp kontaktieren",waSub:"Nachricht an den Besitzer senden",
+    locLabel:"Meinen Standort senden",   locSub:"Standort des Tieres teilen",
+    videoLabel:"Videoanruf starten",     videoSub:"Besitzer live sehen",
+    medTitle:"Medizinische Info", contTitle:"Notfallkontakte", addTitle:"Weitere Infos",
+    lMicrochip:"Mikrochip", lHealth:"Gesundheit", lCharacter:"Charakter",
+    lOwner:"Besitzer", lPhone1:"Haupttelefon", lPhone2:"Familientelefon",
+    lZone:"Gebiet / Viertel", lOther:"Andere Daten",
+    medSub:"Medizin · Gesundheit · Charakter",
+    contSub:"Besitzer · Telefone",
+    addSub:"Gebiet · Viertel · Daten",
+    footerTag:"Familien mit ihren pelzigen Begleitern wieder vereinen",
+    privacy:"🔒 Datenschutzerklärung",
+    loadingText:"Standort wird ermittelt...",
+    gdprTitle:"📍 Bevor Sie fortfahren",
+    gdprWhat:"Ihr ungefährer GPS-Standort wird erfasst.",
+    gdprPurpose:"Es dient ausschließlich dazu, dem Besitzer zu helfen.",
+    gdprReceiver:"Er wird über WhatsApp nur an den Besitzer gesendet.",
+    gdprNoStore:"Er wird nicht gespeichert oder anderweitig verwendet.",
+    gdprAccept:"✅ Ich stimme zu", gdprCancel:"📵 Ohne Standort",
+    videoTitle:"VIDEOANRUF MIT DEM BESITZER",
+    videoStep1:"1. WhatsApp wird gleich geöffnet",
+    videoStep2:"2. Senden Sie die Nachricht an den Besitzer",
+    videoStep3:"3. NACH dem Senden auf das Videokamera-Symbol tippen",
+    videoInfo:"So kann der Besitzer sehen, dass sein Tier in Sicherheit ist",
+    videoBtn:"WhatsApp öffnen",
+    waMsg:"Hallo 😊 Ich habe Ihr Tier Zeus gefunden, und ich möchte Sie wissen lassen, dass es ihm sehr gut geht. Es ist ruhig und bei mir. Sagen Sie mir, wie Sie die Übergabe regeln möchten. Keine Sorge, es ist in guten Händen!\n\n📍 Mein Standort:\n{mapa}",
+    waMsgNoGeo:"Hallo 😊 Ich habe Ihr Tier Zeus gefunden, und ich möchte Sie wissen lassen, dass es ihm sehr gut geht. Es ist ruhig und bei mir. Keine Sorge, es ist in guten Händen! 😊",
+    waMsgNoSupport:"Hallo 😊 Ich habe Ihr Tier Zeus gefunden und es geht ihm gut.",
+    waMsgVideo:"Hallo! Ich habe Zeus gefunden. Er ist bei mir und wohlauf. Möchten Sie ihn per Videoanruf sehen?\nAntworten Sie auf diese Nachricht und tippen Sie auf das Kamera-Symbol in WhatsApp 📹\n\n📍 Mein Standort: {mapa}",
+    waMsgVideoNoGeo:"Hallo! Ich habe Zeus gefunden. Er ist bei mir und wohlauf. Möchten Sie ihn per Videoanruf sehen?\nAntworten Sie und tippen Sie auf das Kamera-Symbol in WhatsApp 📹"
+  },
+  pt:{
+    emergency:"URGENTE — ESTOU PERDIDO",
+    petName:"Olá, o meu nome é Zeus 🐾",
+    petSub:"Ajude-me a voltar para casa",
+    petCaption:"Zeus está à sua espera 🐾",
+    callLabel:"LIGAR AGORA",      callSub:"Contacto direto com o dono",
+    waLabel:"Contactar por WhatsApp",waSub:"Enviar mensagem ao dono",
+    locLabel:"Enviar a minha localização",locSub:"Partilhar onde está o animal",
+    videoLabel:"Fazer Videochamada",videoSub:"Ver o dono em direto",
+    medTitle:"Info Médica", contTitle:"Contactos de Emergência", addTitle:"Info Adicional",
+    lMicrochip:"Microchip", lHealth:"Saúde", lCharacter:"Carácter",
+    lOwner:"Dono/a", lPhone1:"Telefone principal", lPhone2:"Telefone familiar",
+    lZone:"Zona / Bairro", lOther:"Outros dados",
+    medSub:"Dados · saúde · carácter",
+    contSub:"Dono · telefones",
+    addSub:"Zona · bairro · dados",
+    footerTag:"Ajudando a reunir famílias com os seus companheiros",
+    privacy:"🔒 Política de Privacidade",
+    loadingText:"A obter localização...",
+    gdprTitle:"📍 Antes de continuar",
+    gdprWhat:"Será recolhida a sua localização GPS aproximada.",
+    gdprPurpose:"O único uso é ajudar o dono a localizar o seu animal.",
+    gdprReceiver:"Será enviada ao dono via WhatsApp, apenas a ele.",
+    gdprNoStore:"Não é guardada em nenhum servidor nem usada para outros fins.",
+    gdprAccept:"✅ Aceito", gdprCancel:"📵 Sem localização",
+    videoTitle:"VIDEOCHAMADA COM O DONO",
+    videoStep1:"1. O WhatsApp irá abrir em breve",
+    videoStep2:"2. Envie a mensagem ao dono",
+    videoStep3:"3. DEPOIS de enviar, toque no ícone de videochamada no WhatsApp",
+    videoInfo:"Assim o dono poderá ver que o seu animal está bem",
+    videoBtn:"Abrir WhatsApp",
+    waMsg:"Olá 😊 Encontrei o seu animal Zeus, e quero que saiba que está perfeitamente bem. Está tranquilo e comigo. Diga-me como prefere que façamos para devolvê-lo. Não se preocupe, está em boas mãos!\n\n📍 A minha localização:\n{mapa}",
+    waMsgNoGeo:"Olá 😊 Encontrei o seu animal Zeus, e quero que saiba que está perfeitamente bem. Está tranquilo e comigo. Não se preocupe, está em boas mãos! 😊",
+    waMsgNoSupport:"Olá 😊 Encontrei o seu animal Zeus e está muito bem.",
+    waMsgVideo:"Olá! Encontrei Zeus. Está comigo e bem. Quer vê-lo por videochamada?\nResponda a esta mensagem e toque no ícone de câmara no WhatsApp 📹\n\n📍 A minha localização: {mapa}",
+    waMsgVideoNoGeo:"Olá! Encontrei Zeus. Está comigo e bem. Quer vê-lo por videochamada?\nResponda a esta mensagem e toque no ícone de câmara no WhatsApp 📹"
+  }
+};
+
+/* ── CONFIG ── */
+const CONFIG = {
+  nombreMascota:   'Zeus',
+  phone:           '34610768377',
+  emailDueno:      'eliphaslevy45@gmail.com',
+  googleScriptURL: 'https://script.google.com/macros/s/AKfycbytri58J1VNh3eoUVkRx2BBXNKAAPmUEmWOh2Q2JAUqKZHozaoul4zc_asWBt3gEC8J/exec'
+};
+
+const langFlags = { es:'fi-es', en:'fi-gb', fr:'fi-fr', it:'fi-it', de:'fi-de', pt:'fi-pt' };
+let currentLang = 'es';
+let esVideo = false;
+
+/* ── IDIOMA ── */
+function setLang(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+  const t = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.getElementById('activeLangFlag').className = 'fi ' + langFlags[lang];
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'));
+  const opt = document.getElementById('lang-' + lang);
+  if (opt) opt.classList.add('active');
+  closeLang();
+  localStorage.setItem('nia_lang', lang);
+}
+
+function toggleLang() {
+  const dd = document.getElementById('langDropdown');
+  dd.classList.toggle('lang-open');
+  document.getElementById('langArrow').style.transform =
+    dd.classList.contains('lang-open') ? 'rotate(180deg)' : '';
+}
+function closeLang() {
+  document.getElementById('langDropdown').classList.remove('lang-open');
+  document.getElementById('langArrow').style.transform = '';
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('langDropdown').contains(e.target)) closeLang();
+});
+
+/* ── INICIO ── */
+window.addEventListener('DOMContentLoaded', () => {
+  const saved   = localStorage.getItem('nia_lang');
+  const browser = navigator.language.substring(0,2);
+  const lang    = saved || (T[browser] ? browser : 'es');
+  setLang(lang);
+  notificarEscaneo();
+  initCarrusel();
+  initAcordeon();
+});
+
+/* ── NOTIFICACIÓN SILENCIOSA ── */
+function notificarEscaneo() {
+  const now  = new Date();
+  const fecha = now.toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const hora  = now.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  const ua    = navigator.userAgent;
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(g => {
+      const p = new URLSearchParams({
+        nombre:CONFIG.nombreMascota, email:CONFIG.emailDueno,
+        fecha, hora, ip:g.ip||'—', ciudad:g.city||'—',
+        region:g.region||'', pais:g.country_name||'', operadora:g.org||'', dispositivo:ua
+      });
+      fetch(CONFIG.googleScriptURL + '?' + p.toString(), {mode:'no-cors'}).catch(()=>{});
+    })
+    .catch(() => {
+      const p = new URLSearchParams({
+        nombre:CONFIG.nombreMascota, email:CONFIG.emailDueno,
+        fecha, hora, ip:'no disponible', ciudad:'—',
+        region:'', pais:'', operadora:'', dispositivo:ua
+      });
+      fetch(CONFIG.googleScriptURL + '?' + p.toString(), {mode:'no-cors'}).catch(()=>{});
+    });
+}
+
+/* ── CARRUSEL CUADRADO ── */
+function initCarrusel() {
+  const slides = document.querySelectorAll('.c-slide');
+  const dots   = document.querySelectorAll('.c-dot');
+  let cur = 0, tmr;
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function startAuto() { clearInterval(tmr); tmr = setInterval(() => goTo(cur+1), 5000); }
+  dots.forEach(d => d.addEventListener('click', function(){ goTo(+this.dataset.slide); startAuto(); }));
+  startAuto();
+}
+
+/* ── MODALES ── */
+function mostrarModalVideo() {
+  document.getElementById('videoOverlay').classList.add('show');
+}
+function iniciarVideollamada() {
+  document.getElementById('videoOverlay').classList.remove('show');
+  esVideo = true;
+  document.getElementById('gdprOverlay').classList.add('show');
+}
+function enviarWhatsApp() {
+  esVideo = false;
+  document.getElementById('gdprOverlay').classList.add('show');
+}
+
+/* ── ACORDEÓN ── */
+function initAcordeon() {
+  const cards = document.querySelectorAll('.info-card');
+  cards.forEach(card => {
+    const head = card.querySelector('.card-head');
+    head.addEventListener('click', () => {
+      const isOpen = card.classList.contains('open');
+      // Cerrar todas
+      cards.forEach(c => c.classList.remove('open'));
+      // Si no estaba abierta, abrirla
+      if (!isOpen) card.classList.add('open');
+    });
+  });
+}
+
+/* ── GDPR ── */
+function gdprCancelado() {
+  document.getElementById('gdprOverlay').classList.remove('show');
+  const t = T[currentLang] || T.es;
+  const msg = esVideo ? t.waMsgVideoNoGeo : t.waMsgNoGeo;
+  esVideo = false;
+  window.location.href = `https://wa.me/${CONFIG.phone}?text=${encodeURIComponent(msg)}`;
+}
+
+function gdprAceptado() {
+  document.getElementById('gdprOverlay').classList.remove('show');
+  document.getElementById('loading').style.display = 'block';
+  const t = T[currentLang] || T.es;
+  const vid = esVideo;
+  esVideo = false;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const mapa = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+        const msg  = vid
+          ? (t.waMsgVideo    || T.es.waMsgVideo).replace('{mapa}', mapa)
+          : (t.waMsg         || T.es.waMsg).replace('{mapa}', mapa);
+        document.getElementById('loading').style.display = 'none';
+        window.location.href = `https://wa.me/${CONFIG.phone}?text=${encodeURIComponent(msg)}`;
+      },
+      () => {
+        const msg = vid ? t.waMsgVideoNoGeo : t.waMsgNoGeo;
+        document.getElementById('loading').style.display = 'none';
+        window.location.href = `https://wa.me/${CONFIG.phone}?text=${encodeURIComponent(msg)}`;
+      },
+      { timeout:8000 }
+    );
+  } else {
+    const msg = vid ? t.waMsgVideoNoGeo : (t.waMsgNoSupport || t.waMsgNoGeo);
+    document.getElementById('loading').style.display = 'none';
+    window.location.href = `https://wa.me/${CONFIG.phone}?text=${encodeURIComponent(msg)}`;
+  }
+}
+</script>
+</body>
+</html>
