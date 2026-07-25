@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
+<title>IVENARK · Acceso Privado</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════
+   IVENARK · PALETA DE COLORES (del logo)
+   ═══════════════════════════════════════════════ */
+:root {
+  --navy:        #1b3a6e;
+  --navy-deep:   #0f2348;
+  --navy-mid:    #244a88;
+  --silver:      #a8b8cc;
+  --sky:         #6fa8c4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'Cormorant Garamond', serif;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   GATE — PANTALLA DE CONTRASEÑA
+   ═══════════════════════════════════════════════ */
+#gate {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 30% 20%, #244a88 0%, #0f2348 50%, #080f1e 100%);
+  transition: opacity 0.8s ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+#gate-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gate-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 20px;
+  animation: gateAppear 1s ease both;
+}
+
+@keyframes gateAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.gate-brand-name {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 5px;
+  margin-bottom: 6px;
+  text-shadow: 0 0 30px rgba(107,168,196,0.7);
+}
+
+.gate-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--silver);
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 18px;
+  opacity: 0.85;
+}
+
+.gate-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(107,168,196,0.5));
+  margin-bottom: 18px;
+  animation: gateLogoFloat 4s ease-in-out infinite;
+}
+@keyframes gateLogoFloat {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-6px); }
+}
+
+.gate-divider {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, var(--silver), transparent);
+  margin-bottom: 28px;
+}
+
+.gate-prompt {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.gate-input-wrap {
+  position: relative;
+  width: 260px;
+  margin-bottom: 22px;
+}
+.gate-input {
+  width: 100%;
+  padding: 14px 48px 14px 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(168,184,204,0.35);
+  border-radius: 40px;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 4px;
+  outline: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+.gate-input:focus {
+  border-color: var(--sky);
+  background: rgba(111,168,196,0.08);
+  box-shadow: 0 0 24px rgba(111,168,196,0.2);
+}
+.gate-input::placeholder {
+  color: rgba(168,184,204,0.45);
+  letter-spacing: 6px;
+  font-style: italic;
+  font-size: 14px;
+}
+.gate-input.locked { opacity: 0.4; pointer-events: none; }
+
+.gate-eye {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--silver);
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.gate-eye:hover { opacity: 1; }
+
+.gate-btn {
+  padding: 12px 44px;
+  background: linear-gradient(135deg, var(--navy-mid), var(--sky));
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(111,168,196,0.3);
+}
+.gate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(111,168,196,0.45); }
+.gate-btn:active { transform: translateY(0); }
+.gate-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.gate-error {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #e88a7a;
+  margin-top: 16px;
+  height: 18px;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+.gate-error.show { opacity: 1; }
+
+.gate-attempts {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(168,184,204,0.75);
+  margin-top: 6px;
+  letter-spacing: 1px;
+  min-height: 16px;
+  text-align: center;
+}
+
+.gate-locked-msg {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #e88a7a;
+  text-align: center;
+  max-width: 260px;
+  line-height: 1.5;
+  margin-top: 18px;
+  display: none;
+}
+.gate-locked-msg.show { display: block; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(5px); }
+}
+.shake { animation: shake 0.4s ease; }
+
+.gate-footer {
+  position: absolute;
+  bottom: 24px;
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: rgba(168,184,204,0.35);
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <canvas id="gate-canvas"></canvas>
+
+  <div class="gate-content">
+    <p class="gate-brand-name">IVENARK</p>
+
+    <p class="gate-tagline">Estás intentando acceder a un contenido privado</p>
+
+    <img class="gate-logo" src="LOGO-IVENARK.png" alt="IVENARK" onerror="this.style.display='none'">
+
+    <div class="gate-divider"></div>
+
+    <p class="gate-prompt">Sitio protegido con contraseña</p>
+
+    <div class="gate-input-wrap">
+      <input
+        id="gate-password"
+        class="gate-input"
+        type="password"
+        placeholder="••••••••"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="gate-eye" onclick="toggleVerPassword()" title="Mostrar">👁</button>
+    </div>
+
+    <button class="gate-btn" id="gate-submit-btn" onclick="verificarPassword()">
+      ✦ &nbsp; ENTRAR &nbsp; ✦
+    </button>
+
+    <p class="gate-error" id="gate-error">Contraseña incorrecta.</p>
+    <p class="gate-attempts" id="gate-attempts"></p>
+    <p class="gate-locked-msg" id="gate-locked-msg">Has agotado los intentos disponibles.<br>Redirigiendo…</p>
+  </div>
+
+  <p class="gate-footer">IVENARK · Gran Canaria</p>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   CONFIGURACIÓN
+   ══════════════════════════════════════════════ */
+const CONFIG = {
+  password:        "CLAUDE2026",
+  destinoExito:    "ENERGY-MASCOTA.html",
+  destinoBloqueo:  "https://www.google.com",
+  maxIntentos:     3
+};
+
+const GATE_STORAGE_KEY = 'ivenark_gate_intentos';
+
+document.addEventListener('DOMContentLoaded', () => {
+  iniciarGate();
+  protegerPlantilla();
+});
+
+/* ── GATE ── */
+function intentosUsados() {
+  return parseInt(sessionStorage.getItem(GATE_STORAGE_KEY) || '0', 10);
+}
+
+function iniciarGate() {
+  animarGateCanvas();
+
+  document.getElementById('gate-password').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') verificarPassword();
+  });
+
+  const usados = intentosUsados();
+  if (usados >= CONFIG.maxIntentos) {
+    bloquearYRedirigir();
+  } else {
+    actualizarContadorIntentos(usados);
+  }
+}
+
+function actualizarContadorIntentos(usados) {
+  const restantes = CONFIG.maxIntentos - usados;
+  const info = document.getElementById('gate-attempts');
+  if (restantes < CONFIG.maxIntentos) {
+    info.textContent = restantes === 1
+      ? 'Te queda 1 intento'
+      : `Te quedan ${restantes} intentos`;
+  } else {
+    info.textContent = '';
+  }
+}
+
+function bloquearYRedirigir() {
+  document.getElementById('gate-password').classList.add('locked');
+  document.getElementById('gate-submit-btn').disabled = true;
+  document.getElementById('gate-attempts').textContent = '';
+  document.getElementById('gate-error').classList.remove('show');
+  document.getElementById('gate-locked-msg').classList.add('show');
+  setTimeout(() => {
+    window.location.href = CONFIG.destinoBloqueo;
+  }, 2200);
+}
+
+function toggleVerPassword() {
+  const inp = document.getElementById('gate-password');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function verificarPassword() {
+  if (intentosUsados() >= CONFIG.maxIntentos) { bloquearYRedirigir(); return; }
+
+  const val = document.getElementById('gate-password').value.trim();
+  if (val.toLowerCase() === CONFIG.password.toLowerCase()) {
+    sessionStorage.removeItem(GATE_STORAGE_KEY);
+    window.location.href = CONFIG.destinoExito;
+    return;
+  }
+
+  const usados = intentosUsados() + 1;
+  sessionStorage.setItem(GATE_STORAGE_KEY, String(usados));
+
+  const wrap = document.querySelector('.gate-input-wrap');
+  wrap.classList.remove('shake');
+  void wrap.offsetWidth;
+  wrap.classList.add('shake');
+  document.getElementById('gate-password').value = '';
+
+  if (usados >= CONFIG.maxIntentos) {
+    bloquearYRedirigir();
+    return;
+  }
+
+  const err = document.getElementById('gate-error');
+  err.classList.add('show');
+  setTimeout(() => err.classList.remove('show'), 3000);
+  actualizarContadorIntentos(usados);
+}
+
+/* ══════════════════════════════════════════════
+   PROTECCIÓN BÁSICA DE LA PLANTILLA
+   ══════════════════════════════════════════════
+   Aviso: son disuasores, no una protección real.
+   El HTML/CSS/JS de cualquier web siempre es visible
+   para el navegador. Frena una copia casual, no un
+   copiado deliberado.
+   ══════════════════════════════════════════════ */
+function protegerPlantilla() {
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  document.addEventListener('keydown', e => {
+    const k = e.key ? e.key.toLowerCase() : '';
+    const bloquear =
+      k === 'f12' ||
+      (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(k)) ||
+      (e.ctrlKey && k === 'u') ||
+      (e.metaKey && e.altKey && ['i','j','c'].includes(k));
+    if (bloquear) e.preventDefault();
+  });
+}
+
+/* ══════════════════════════════════════════════
+   CANVAS GATE — ESTRELLAS + HUELLAS
+   ══════════════════════════════════════════════ */
+function animarGateCanvas() {
+  const canvas = document.getElementById('gate-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const estrellas = Array.from({length: 80}, () => ({
+    x: Math.random(), y: Math.random(),
+    r: 0.3 + Math.random() * 1.2,
+    alpha: 0.2 + Math.random() * 0.7,
+    pulso: Math.random() * Math.PI * 2,
+    pspd:  0.008 + Math.random() * 0.015,
+  }));
+
+  const HUELLA = '🐾';
+  const huellas = Array.from({length: 14}, () => crearHuella(true));
+
+  function crearHuella(init) {
+    return {
+      x:     Math.random(),
+      y:     init ? Math.random() : 1.05,
+      speed: 0.0006 + Math.random() * 0.0009,
+      size:  10 + Math.random() * 14,
+      alpha: 0.06 + Math.random() * 0.12,
+      drift: (Math.random() - 0.5) * 0.0003,
+    };
+  }
+
+  function animar() {
+    ctx.clearRect(0, 0, W, H);
+
+    for (const s of estrellas) {
+      s.pulso += s.pspd;
+      const a = s.alpha * (0.6 + 0.4 * Math.sin(s.pulso));
+      ctx.beginPath();
+      ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(168,184,204,${a})`;
+      ctx.fill();
+    }
+
+    for (const h of huellas) {
+      h.y -= h.speed;
+      h.x += h.drift;
+      if (h.y < -0.1) Object.assign(h, crearHuella(false));
+      ctx.globalAlpha = h.alpha;
+      ctx.font = `${h.size}px serif`;
+      ctx.fillText(HUELLA, h.x * W, h.y * H);
+    }
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(animar);
+  }
+  animar();
+}
+</script>
+</body>
+</html>
