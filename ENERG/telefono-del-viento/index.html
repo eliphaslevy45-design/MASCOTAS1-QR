@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teléfono del Viento - IVENARK</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     GATE-TELEFONO-VIENTO · INICIO
+     Pantalla de contraseña. Solo protege esta página (Teléfono del
+     Viento), NO afecta a la ficha de la mascota (ENERGY-MASCOTA.html),
+     que sigue siendo de acceso libre para quien escanee el QR.
+     Para cambiar la contraseña, busca WIND_GATE_PASSWORD más abajo
+     en el bloque <script> "GATE-TELEFONO-VIENTO · CONFIGURACIÓN".
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="ventoGate" class="vento-gate">
+    <div class="vento-gate-box">
+        <p class="vento-gate-brand">IVENARK</p>
+        <p class="vento-gate-tagline">Teléfono del Viento</p>
+        <p class="vento-gate-prompt">Acceso privado · Solo familia</p>
+
+        <div class="vento-gate-input-wrap">
+            <input
+                id="vento-gate-password"
+                class="vento-gate-input"
+                type="password"
+                placeholder="••••••••"
+                autocomplete="off"
+                spellcheck="false"
+            />
+            <button class="vento-gate-eye" type="button" onclick="ventoTogglePassword()" title="Mostrar">👁</button>
+        </div>
+
+        <button class="vento-gate-btn" id="vento-gate-btn" onclick="ventoVerificarPassword()">
+            Entrar
+        </button>
+
+        <p class="vento-gate-error" id="vento-gate-error">Contraseña incorrecta.</p>
+        <p class="vento-gate-attempts" id="vento-gate-attempts"></p>
+        <p class="vento-gate-locked" id="vento-gate-locked">Has agotado los intentos disponibles.<br>Redirigiendo…</p>
+    </div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════════
+     GATE-TELEFONO-VIENTO · FIN
+     ═══════════════════════════════════════════════════════════════ -->
+
+    <div id="ventoContent" class="vento-content-oculto">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="titulo">Teléfono del Viento</h1>
+            <p class="subtitulo">Envía un mensaje a tu mascota a través de IVENARK</p>
+            <p class="inspiracion">Inspirado en el modelo de Itaru Sasaki</p>
+        </header>
+
+        <!-- Entrada para nombre de la mascota -->
+        <div class="inputBox">
+            <label for="petName">Dedicado a:</label>
+            <input type="text" id="petName" placeholder="Nombre de tu mascota" autocomplete="off">
+        </div>
+
+        <!-- Teléfono con SVG embebido -->
+        <div class="telefono-container">
+            <!-- SVG Teléfono Antiguo Rotatorio Mejorado -->
+            <svg class="telefono-svg" viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Gradientes más realistas -->
+                    <linearGradient id="metalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#2d2d2d;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0d0d0d;stop-opacity:1" />
+                    </linearGradient>
+                    
+                    <radialGradient id="dialGradient" cx="50%" cy="50%">
+                        <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                        <stop offset="70%" style="stop-color:#DAA520;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+                    </radialGradient>
+                    
+                    <filter id="phoneShadow">
+                        <feDropShadow dx="0" dy="6" stdDeviation="8" flood-opacity="0.5"/>
+                    </filter>
+                </defs>
+
+                <!-- Base del teléfono (más grande y clara) -->
+                <rect x="30" y="80" width="180" height="220" rx="20" 
+                      fill="url(#metalGradient)" 
+                      stroke="#000" stroke-width="3"
+                      filter="url(#phoneShadow)"/>
+                
+                <!-- Borde interior decorativo -->
+                <rect x="38" y="88" width="164" height="204" rx="15" 
+                      fill="none" stroke="#FFD700" stroke-width="2" opacity="0.3"/>
+
+                <!-- ============ AURICULAR EN LA PARTE SUPERIOR ============ -->
+                <!-- Soporte del auricular (horquilla) -->
+                <rect x="80" y="95" width="80" height="8" rx="4" fill="#1a1a1a" stroke="#FFD700" stroke-width="1"/>
+                
+                <!-- Auricular (forma clásica curva) -->
+                <g id="handset">
+                    <!-- Cuerpo del auricular -->
+                    <path d="M 65 50 Q 60 40 70 35 L 170 35 Q 180 40 175 50 L 170 60 Q 165 65 155 65 L 85 65 Q 75 65 70 60 Z" 
+                          fill="#1a1a1a" stroke="#FFD700" stroke-width="2.5"/>
+                    
+                    <!-- Parlante izquierdo -->
+                    <ellipse cx="85" cy="50" rx="10" ry="12" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <circle cx="85" cy="50" r="6" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.4"/>
+                    <circle cx="85" cy="50" r="3" fill="none" stroke="#FFD700" stroke-width="0.5"/>
+                    
+                    <!-- Parlante derecho -->
+                    <ellipse cx="155" cy="50" rx="10" ry="12" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <circle cx="155" cy="50" r="6" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.4"/>
+                    <circle cx="155" cy="50" r="3" fill="none" stroke="#FFD700" stroke-width="0.5"/>
+                    
+                    <!-- Cable en espiral -->
+                    <path d="M 120 65 Q 115 75 118 85 Q 121 95 116 105 Q 111 115 114 120" 
+                          stroke="#333" stroke-width="3" fill="none" opacity="0.7"/>
+                </g>
+
+                <!-- ============ DISCO DE MARCAR (GRANDE Y CLARO) ============ -->
+                <!-- Placa con nombre -->
+                <rect x="70" y="130" width="100" height="25" rx="8" fill="#0a0a0a" stroke="#FFD700" stroke-width="2"/>
+                <text x="120" y="148" font-family="serif" font-size="14" font-weight="bold" fill="#FFD700" text-anchor="middle">IVENARK</text>
+                
+                <!-- Círculo exterior del disco (dorado) -->
+                <circle cx="120" cy="210" r="65" fill="url(#dialGradient)" stroke="#8B4513" stroke-width="4"/>
+                
+                <!-- Círculo medio del disco -->
+                <circle cx="120" cy="210" r="58" fill="#1a1a1a" stroke="#FFD700" stroke-width="2"/>
+                
+                <!-- Círculo interior del disco -->
+                <circle cx="120" cy="210" r="25" fill="#0a0a0a" stroke="#FFD700" stroke-width="2"/>
+                
+                <!-- Centro del disco -->
+                <circle cx="120" cy="210" r="12" fill="#FFD700"/>
+                <circle cx="120" cy="210" r="8" fill="#1a1a1a"/>
+                
+                <!-- AGUJEROS DEL DISCO (10 agujeros como teléfono real) -->
+                <!-- Agujero 1 -->
+                <g transform="translate(120, 210)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">1</text>
+                </g>
+                
+                <!-- Agujero 2 -->
+                <g transform="translate(120, 210) rotate(36)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">2</text>
+                </g>
+                
+                <!-- Agujero 3 -->
+                <g transform="translate(120, 210) rotate(72)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">3</text>
+                </g>
+                
+                <!-- Agujero 4 -->
+                <g transform="translate(120, 210) rotate(108)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">4</text>
+                </g>
+                
+                <!-- Agujero 5 -->
+                <g transform="translate(120, 210) rotate(144)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">5</text>
+                </g>
+                
+                <!-- Agujero 6 -->
+                <g transform="translate(120, 210) rotate(180)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">6</text>
+                </g>
+                
+                <!-- Agujero 7 -->
+                <g transform="translate(120, 210) rotate(216)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">7</text>
+                </g>
+                
+                <!-- Agujero 8 -->
+                <g transform="translate(120, 210) rotate(252)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">8</text>
+                </g>
+                
+                <!-- Agujero 9 -->
+                <g transform="translate(120, 210) rotate(288)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">9</text>
+                </g>
+                
+                <!-- Agujero 0 -->
+                <g transform="translate(120, 210) rotate(324)">
+                    <circle cx="0" cy="-45" r="7" fill="#0a0a0a" stroke="#FFD700" stroke-width="1.5"/>
+                    <text x="0" y="-41" font-size="10" fill="#FFD700" text-anchor="middle">0</text>
+                </g>
+                
+                <!-- Tope del disco (pequeña barra metálica) -->
+                <rect x="183" y="205" width="15" height="10" rx="2" fill="#FFD700" stroke="#8B4513" stroke-width="1"/>
+            </svg>
+
+            <div id="halo" class="halo hidden"></div>
+
+            <div class="botones-container">
+                <button id="btnStart" class="btn btn-start">
+                    <span class="btn-icon">📞</span>
+                    <span class="btn-text">Levantar auricular</span>
+                </button>
+                <button id="btnStop" class="btn btn-stop hidden">
+                    <span class="btn-icon">☎️</span>
+                    <span class="btn-text">Colgar auricular</span>
+                </button>
+            </div>
+
+            <p id="grabando" class="grabando hidden">
+                <span class="grabando-icon">⏺</span>
+                Grabando mensaje para el más allá…
+            </p>
+            
+            <p class="aviso">
+                Al grabar aceptas que tu mensaje se almacene en <strong>IVENARK</strong>
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <section class="mensajes-section">
+            <h2 class="titulo-lista">
+                <span class="lista-icon">💌</span>
+                Mensajes registrados
+            </h2>
+            <ul id="recordingsList" class="lista"></ul>
+            <p id="sinMensajes" class="sin-mensajes">Aún no hay mensajes. Sé el primero en enviar amor al más allá.</p>
+        </section>
+
+        <div id="pantallaFinal" class="pantalla-final hidden">
+            <div class="final-icon">🕊️</div>
+            <p>Tu mensaje ha sido entregado a tu mascota,</p>
+            <p>a través del <strong>Teléfono del Viento de IVENARK</strong>,</p>
+            <p>inspirado en el modelo de <em>Itaru Sasaki</em>.</p>
+            <div class="final-decoracion">✦ ✧ ✦</div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Con amor, desde IVENARK 🌙</p>
+    </footer>
+
+    </div><!-- /ventoContent -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     GATE-TELEFONO-VIENTO · CONFIGURACIÓN
+     Cambia solo la línea WIND_GATE_PASSWORD para actualizar la clave.
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+const WIND_GATE_PASSWORD     = "CLAUDE2026"; // <-- contraseña de acceso
+const WIND_GATE_MAX_ATTEMPTS = 3;
+const WIND_GATE_REDIRECT     = "../ENERGY-MASCOTA.html"; // a dónde mandar si se agotan los intentos
+
+const WIND_GATE_STORAGE_KEY = 'ivenark_wind_gate_intentos';
+
+function ventoIntentosUsados() {
+    return parseInt(sessionStorage.getItem(WIND_GATE_STORAGE_KEY) || '0', 10);
+}
+
+function ventoActualizarContador(usados) {
+    const restantes = WIND_GATE_MAX_ATTEMPTS - usados;
+    const info = document.getElementById('vento-gate-attempts');
+    info.textContent = restantes < WIND_GATE_MAX_ATTEMPTS
+        ? (restantes === 1 ? 'Te queda 1 intento' : `Te quedan ${restantes} intentos`)
+        : '';
+}
+
+function ventoBloquearYRedirigir() {
+    document.getElementById('vento-gate-password').setAttribute('disabled', 'true');
+    document.getElementById('vento-gate-btn').setAttribute('disabled', 'true');
+    document.getElementById('vento-gate-attempts').textContent = '';
+    document.getElementById('vento-gate-error').classList.remove('show');
+    document.getElementById('vento-gate-locked').classList.add('show');
+    setTimeout(() => { window.location.href = WIND_GATE_REDIRECT; }, 2200);
+}
+
+function ventoTogglePassword() {
+    const inp = document.getElementById('vento-gate-password');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function ventoVerificarPassword() {
+    if (ventoIntentosUsados() >= WIND_GATE_MAX_ATTEMPTS) { ventoBloquearYRedirigir(); return; }
+
+    const val = document.getElementById('vento-gate-password').value.trim();
+
+    if (val === WIND_GATE_PASSWORD) {
+        sessionStorage.removeItem(WIND_GATE_STORAGE_KEY);
+        document.getElementById('ventoGate').style.display = 'none';
+        document.getElementById('ventoContent').classList.remove('vento-content-oculto');
+
+        // Solo ahora, con la contraseña correcta, se cargan los mensajes guardados.
+        if (typeof iniciarTelefonoViento === 'function') iniciarTelefonoViento();
+        return;
+    }
+
+    const usados = ventoIntentosUsados() + 1;
+    sessionStorage.setItem(WIND_GATE_STORAGE_KEY, String(usados));
+
+    const box = document.querySelector('.vento-gate-box');
+    box.classList.remove('vento-shake');
+    void box.offsetWidth;
+    box.classList.add('vento-shake');
+    document.getElementById('vento-gate-password').value = '';
+
+    if (usados >= WIND_GATE_MAX_ATTEMPTS) { ventoBloquearYRedirigir(); return; }
+
+    const err = document.getElementById('vento-gate-error');
+    err.classList.add('show');
+    setTimeout(() => err.classList.remove('show'), 3000);
+    ventoActualizarContador(usados);
+}
+
+document.getElementById('vento-gate-password').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') ventoVerificarPassword();
+});
+
+if (ventoIntentosUsados() >= WIND_GATE_MAX_ATTEMPTS) ventoBloquearYRedirigir();
+</script>
+<!-- ═══════════════════════════════════════════════════════════════
+     GATE-TELEFONO-VIENTO · FIN CONFIGURACIÓN
+     ═══════════════════════════════════════════════════════════════ -->
+
+    <script src="apps.js"></script>
+</body>
+</html>
